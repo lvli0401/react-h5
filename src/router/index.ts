@@ -30,6 +30,16 @@ const routes: Array<RouteItem> = [
     ],
   },
   {
+    path: "venues",
+    children: [
+      {
+        path: "order", //index路由的path仅仅是用作key
+        index: true,
+        component: lazy(() => import("@/pages/Venues/index")),
+      },
+    ],
+  },
+  {
     path: "message",
     component: lazy(() => import("@/pages/Messages")),
   },
