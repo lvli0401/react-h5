@@ -3,6 +3,7 @@ import styles from "./index.module.scss";
 import Layout from "@components/Layout";
 import { Link } from "react-router-dom";
 import { Button } from "antd-mobile";
+import VenueCard from './components/venue-card';
 const entryList = [
   {
     icon: '',
@@ -22,7 +23,21 @@ const entryList = [
   }
 ]
 const venueList = [
-  {imgurl: ''}
+  {
+    imgurl: '',
+    title: '羽毛球',
+    link: ''
+  },
+  {
+    imgurl: '',
+    title: '篮球',
+    link: ''
+  },
+  {
+    imgurl: '',
+    title: '足球',
+    link: ''
+  }
 ]
 const Home: React.FC<Record<string, never>> = () => {
   return (
@@ -36,7 +51,8 @@ const Home: React.FC<Record<string, never>> = () => {
           </div>
         ))}
       </div>
-      <div>场馆信息</div>
+      <div className={styles.venueTitle}>场馆信息</div>
+      {venueList.map(v => <VenueCard key={v.link} data={v} />)}
     </Layout>
   );
 };

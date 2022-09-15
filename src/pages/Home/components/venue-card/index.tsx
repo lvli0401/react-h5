@@ -1,15 +1,16 @@
 import React from 'react'
+import styles from './index.module.scss'
 
 interface dataProps {
     imgurl: string
     title: string
     link: string
 }
-const VenueCard  = (data: dataProps) => {
+const VenueCard  = ({data}: {data: dataProps}) => {
   return (
-    <div>
+    <div className={styles.card}>
       <img src={data.imgurl}/>
-      <div>
+      <div className={styles.content}>
         <div>
           <p>标题: {data.title}</p>
         </div>
