@@ -15,14 +15,9 @@ const tabs = [
     icon: <AppOutline />,
   },
   {
-    key: "/todo",
-    title: "我的待办",
+    key: "/data",
+    title: "数据中心",
     icon: <UnorderedListOutline />,
-  },
-  {
-    key: "/message",
-    title: "我的消息",
-    icon: <MessageOutline />,
   },
   {
     key: "/my",
@@ -48,6 +43,7 @@ const Layout: React.FC<any> = ({ children }) => {
             <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
           ))}
         </TabBar>
+        {}
       </div>
     </div>
   );

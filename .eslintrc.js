@@ -49,6 +49,7 @@ module.exports = {
     // Note: you must disable the base rule as it can report incorrect errors
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": "off",
+    //允许部分页面禁用ts检查
     "@typescript-eslint/ban-ts-comment": "off",
   },
 };

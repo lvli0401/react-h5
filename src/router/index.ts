@@ -16,18 +16,8 @@ const routes: Array<RouteItem> = [
     component: lazy(() => import("@pages/Home")),
   },
   {
-    path: "todo",
-    children: [
-      {
-        path: "todo", //index路由的path仅仅是用作key
-        index: true,
-        component: lazy(() => import("@pages/TodoList")),
-      },
-      {
-        path: "test", //index路由的path仅仅是用作key
-        component: lazy(() => import("@pages/Test")),
-      },
-    ],
+    path: "data",
+    component: lazy(() => import("@pages/Data")),
   },
   {
     path: "message",
@@ -36,10 +26,6 @@ const routes: Array<RouteItem> = [
   {
     path: "my",
     component: lazy(() => import("@/pages/My")),
-  },
-  {
-    path: "test/*", //index路由的path仅仅是用作key
-    component: lazy(() => import("@pages/TestRoutes")),
   },
   {
     path: "*",
