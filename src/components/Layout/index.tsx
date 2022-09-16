@@ -8,21 +8,23 @@ import {
   UnorderedListOutline,
   UserOutline,
 } from "antd-mobile-icons";
+import imgHome from '@/asset/img/img-首页-选中@2x.png'
+
 const tabs = [
   {
     key: "/home",
     title: "首页",
-    icon: <AppOutline />,
+    icon: imgHome,
   },
   {
     key: "/data",
     title: "数据中心",
-    icon: <UnorderedListOutline />,
+    icon: '../../assets/img/img-数据中心-默认@2x.png',
   },
   {
     key: "/my",
     title: "个人中心",
-    icon: <UserOutline />,
+    icon: '../../assets/img/img-个人中心-默认@2x.png'
   },
 ];
 const Layout: React.FC<any> = ({ children }) => {
@@ -38,12 +40,12 @@ const Layout: React.FC<any> = ({ children }) => {
     <div className={styles.container}>
       {children}
       <div className={styles.nav}>
-        <TabBar activeKey={pathname} onChange={value => setRouteActive(value)}>
+        {/* <TabBar activeKey={pathname} onChange={value => setRouteActive(value)}>
           {tabs.map(item => (
             <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
           ))}
-        </TabBar>
-        {}
+        </TabBar> */}
+        {tabs.map(v => <img key={v.icon} src={v.icon} />)}
       </div>
     </div>
   );

@@ -219,6 +219,7 @@ module.exports = function (webpackEnv) {
       devtoolModuleFilenameTemplate: isEnvProduction
         ? info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, "/")
         : isEnvDevelopment && (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, "/")),
+      clean: true,
     },
     cache: {
       type: "filesystem",
@@ -367,6 +368,10 @@ module.exports = function (webpackEnv) {
                   maxSize: imageInlineSizeLimit,
                 },
               },
+              generator: {
+                filename: 'img/[name].[hash:6][ext]',
+                publicPath: './'
+              }
             },
             {
               test: /\.svg$/,
