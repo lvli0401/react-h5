@@ -368,10 +368,6 @@ module.exports = function (webpackEnv) {
                   maxSize: imageInlineSizeLimit,
                 },
               },
-              generator: {
-                filename: 'img/[name].[hash:6][ext]',
-                publicPath: './'
-              }
             },
             {
               test: /\.svg$/,
