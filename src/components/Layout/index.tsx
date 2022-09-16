@@ -8,7 +8,7 @@ import {
   UnorderedListOutline,
   UserOutline,
 } from "antd-mobile-icons";
-import imgHome from '@/asset/img/img-首页-选中@2x.png'
+import imgHome from '@images/img-首页-选中@2x.png'
 
 const tabs = [
   {
