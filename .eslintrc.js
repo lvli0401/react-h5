@@ -46,5 +46,9 @@ module.exports = {
     //不允许使用any
     "@typescript-eslint/no-explicit-any": "off",
     // "react/jsx-key": [true, { "checkFragmentShorthand": true }]
+    // Note: you must disable the base rule as it can report incorrect errors
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
   },
 };

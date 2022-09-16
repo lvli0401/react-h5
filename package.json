@@ -161,10 +161,13 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
+    "html2canvas": "^1.4.1",
     "husky": "4.3.8",
     "lint-staged": "^12.4.0",
     "postcss-pxtorem": "^6.0.0",
     "prettier": "^2.6.2",
+    "qrcodejs2": "^0.0.2",
+    "rc-table": "^7.27.2",
     "sass": "^1.50.1"
   },
   "lint-staged": {
