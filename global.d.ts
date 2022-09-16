@@ -72,3 +72,6 @@ declare module '*.module.sass' {
   const classes: { readonly [key: string]: string };
   export default classes;
 }
+declare module 'qrcodejs2';
+declare module 'arale-qrcode';
+declare module 'qrcodejs';

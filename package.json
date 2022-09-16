@@ -165,6 +165,8 @@
     "lint-staged": "^12.4.0",
     "postcss-pxtorem": "^6.0.0",
     "prettier": "^2.6.2",
+    "qrcode.react": "^3.1.0",
+    "rc-table": "^7.27.2",
     "sass": "^1.50.1"
   },
   "lint-staged": {
