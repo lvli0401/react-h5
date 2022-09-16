@@ -1,0 +1,117 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: #F5F5F5;
+
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding-left: 19px;
+    box-sizing: border-box;
+    background-color: #fff;
+
+    .title {
+      height: 22px;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #222222;
+      line-height: 22px;
+      margin-left: 13px;
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 343px;
+    margin-left: 16px;
+    background: #FFFFFF;
+    border-radius: 6px;
+    margin-top: 16px;
+
+    .cardItem {
+      width: 307px;
+      height: 45px;
+      line-height: 45px;
+      border-bottom: 1px solid #efefef;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .itemLabel {
+        display: inline-block;
+        width: 65px;
+        margin-right: 5px;
+        height: 20px;
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #333333;
+        line-height: 20px;
+      }
+
+      .itemContent {
+        flex: 1;
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #999999;
+      }
+
+      .isAudit {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .btnBox {
+          display: flex;
+          .btnSuc {
+            width: 68px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            background: #FF6118;
+            border-radius: 14px;
+            font-size: 12px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: #FFFFFF;
+            margin-right: 10px;
+          }
+
+          .btnFail {
+            width: 68px;
+            line-height: 24px;
+            text-align: center;
+            height: 24px;
+            border-radius: 14px;
+            border: 1px solid #FF6118;
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #FF6118;
+          }
+        }
+
+      }
+
+      .auditSuccess {
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #FF6118;
+      }
+
+      .auditFailed {
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #999999;
+      }
+    }
+  }
+}

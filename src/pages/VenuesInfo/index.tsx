@@ -1,5 +1,6 @@
 import React, { RefObject, useState } from "react";
 import dayjs from "dayjs";
+import { LeftOutline, DownFill } from "antd-mobile-icons";
 import {
   Form,
   Input,
@@ -17,6 +18,7 @@ import {
   Image,
 } from "antd-mobile";
 import type { DatePickerRef } from "antd-mobile/es/components/date-picker";
+import styles from "./index.module.scss";
 
 const basicColumns = [
   [
@@ -32,17 +34,29 @@ const Venues: React.FC<any> = () => {
   const [value, setValue] = useState<(string | null)[]>([]);
 
   return (
-    <div>
-      <header>
-        <Image src="https://cdn.leoao.com/%20litta/mini/index/card.png" />
-        <div>标题 文字</div>
-      </header>
-      <div>
-        {/* <select name="" id="" placeholder="请选择场馆">
-          <option value="1">普陀馆1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select> */}
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <LeftOutline fontSize={16} />
+        <span className={styles.title}>场馆预约审核列表</span>
+      </div>
+      <div className={styles.info}>
+        <Image
+          className={styles.venuePic}
+          src="https://cdn.leoao.com/%20litta/mini/index/card.png"
+        />
+        <h2 className={styles.subTitle}>场馆简介信息</h2>
+        <div className={styles.infoContent}>
+          <p className={styles.infoWord}>这里是信息内容</p>
+        </div>
+        <h2 className={styles.subTitle}>开放时间</h2>
+        <div className={styles.infoContent}>
+          <div className={styles.infoWord}>上午 08:00 - 12:00</div>
+          <div className={styles.infoWord}>下午 14:00 - 20:00</div>
+        </div>
+        <h2 className={styles.subTitle}>地址信息</h2>
+        <div className={styles.infoWord}>上海市长宁区。。。</div>
+      </div>
+      <div className={styles.changeVenues}>
         <Picker
           columns={basicColumns}
           value={value}
@@ -53,19 +67,27 @@ const Venues: React.FC<any> = () => {
         >
           {(items, { open }) => {
             return (
-              <Space align="center">
-                <Tag color="primary" fill="outline" onClick={open}>
-                  场馆：
-                </Tag>
-                {items.every((item) => item === null)
-                  ? "未选择"
-                  : items.map((item) => item?.label)}
-              </Space>
+              <div className={styles.changeInner}>
+                <Image
+                  className={styles.venueIcon}
+                  src="https://cdn.leoao.com/%20litta/mini/index/card.png"
+                />
+
+                <div className={styles.venueName}>
+                  {items.every((item) => item === null)
+                    ? "默认场馆"
+                    : items.map((item) => item?.label)}
+                </div>
+                <div className={styles.bar} onClick={open}>
+                  更换
+                  <DownFill />
+                </div>
+              </div>
             );
           }}
         </Picker>
       </div>
-      <div>
+      <div className={styles.formBox}>
         <Form
           layout="horizontal"
           footer={
@@ -132,8 +154,11 @@ const Venues: React.FC<any> = () => {
               }
             </DatePicker>
           </Form.Item>
-          <Form.Item name="favoriteFruits" label="时段">
+          <Form.Item name="favoriteFruits" label="时段选择">
             <Selector
+              style={{
+                "--padding": "2px",
+              }}
               columns={3}
               options={[
                 { label: "上午", value: "apple" },
