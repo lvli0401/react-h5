@@ -74,3 +74,4 @@ declare module '*.module.sass' {
 }
 declare module 'qrcodejs2';
 declare module 'arale-qrcode';
+declare module 'qrcodejs';

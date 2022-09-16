@@ -2,9 +2,11 @@ import React, { useCallback, useRef, useState } from "react";
 import Layout from "@components/Layout";
 import {Button} from 'antd-mobile'
 import Table from 'rc-table'
+import QRCode from 'qrcode.react'
 
 const Messages: React.FC<any> = () => {
   const refQr = useRef(null)
+  const [imgSrc, setImgSrc] = useState('')
   const columns = [
     {
       title: 'Name',
@@ -37,22 +39,29 @@ const Messages: React.FC<any> = () => {
     { name: 'Rose', age: 36, address: 'some where', key: '2' },
   ];
   const handleQr = useCallback(() => {
-    // @ts-ignore
-    const qrcode = new QRCode(refQr.current, {
-      text: "http://www.muguilin.com",
-      width: 300,
-      height: 300,
-      colorDark: "blue",
-      colorLight: "white",
-      // @ts-ignore
-      correctLevel: QRCode.CorrectLevel.H
-    })
-    // qrcode.clear();
-    // if(refQr.current) qrcode.makeCode(refQr.current.value);
+    const canvasImg: any = document.getElementById('qrCode'); // 获取canvas类型的二维码
+    setImgSrc(canvasImg?.toDataURL('image/png'));
   }, [])
   return <Layout>
     <Button onClick={handleQr}>生成二维码</Button>
     <div ref={refQr}></div>
+    <img src={imgSrc} />
+    <div style={{display: 'none'}}>
+      <QRCode
+        id="qrCode"
+        value="https://www.jianshu.com/u/992656e8a8a6"
+        size={100} // 二维码的大小
+        fgColor="#000000" // 二维码的颜色
+        style={{ margin: 'auto' }}
+        imageSettings={{ // 二维码中间的logo图片
+          src: 'logoUrl',
+          height: 100,
+          width: 100,
+          excavate: true, // 中间图片所在的位置是否镂空
+        }}
+      /> 
+    </div>
+     
     <Table columns={columns} data={data} />
   </Layout>;
 };
