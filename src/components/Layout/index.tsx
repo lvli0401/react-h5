@@ -1,13 +1,6 @@
-import React from "react";
-import { TabBar } from "antd-mobile";
-import { useLocation, useNavigate } from "react-router-dom";
-import styles from "./index.module.scss";
-import {
-  AppOutline,
-  MessageOutline,
-  UnorderedListOutline,
-  UserOutline,
-} from "antd-mobile-icons";
+import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import styles from './index.module.scss'
 import imgHome from '@images/img-首页-默认@2x.png'
 import imgHomeActive from '@images/img-首页-选中@2x.png'
 import imgData from '@images/img-数据中心-默认@2x.png'
@@ -18,32 +11,32 @@ import cn from 'classnames'
 
 const tabs = [
   {
-    path: "/home",
-    title: "首页",
+    path: '/home',
+    title: '首页',
     icon: imgHome,
     activeIcon: imgHomeActive,
   },
   {
-    path: "/data",
-    title: "数据中心",
+    path: '/data',
+    title: '数据中心',
     icon: imgData,
     activeIcon: imgDataActive,
   },
   {
-    path: "/my",
-    title: "个人中心",
+    path: '/my',
+    title: '个人中心',
     icon: imgMy,
     activeIcon: imgMyActive,
   },
-];
+]
 const Layout: React.FC<any> = ({ children }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { pathname } = location;
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { pathname } = location
 
   const setRouteActive = (value: string) => {
-    navigate(value);
-  };
+    navigate(value)
+  }
 
   return (
     <div className={styles.container}>
@@ -59,7 +52,7 @@ const Layout: React.FC<any> = ({ children }) => {
           </div>)}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout
