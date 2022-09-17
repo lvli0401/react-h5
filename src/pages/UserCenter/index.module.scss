@@ -1,0 +1,98 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: #F5F5F5;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding-left: 19px;
+    box-sizing: border-box;
+    background-color: #fff;
+
+    .title {
+      height: 22px;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #222222;
+      line-height: 22px;
+      margin-left: 13px;
+    }
+  }
+
+  .loginBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 343px;
+    height: 160px;
+    margin-top: 30px;
+    background: #FFFFFF;
+    border-radius: 8px;
+
+    .rightBar {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      height: 17px;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #999999;
+      line-height: 17px;
+    }
+
+    .avatar {
+      width: 56px;
+      height: 56px;
+      background: #FF6118;
+      margin-bottom: 7px;
+    }
+
+    .loginText {
+      width: 36px;
+      height: 25px;
+      font-size: 18px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #333333;
+      line-height: 25px;
+    }
+  }
+
+  .card {
+    width: 343px;
+    margin-top: 12px;
+
+    .item {
+      display: flex;
+      align-items: center;
+      width: 343px;
+      height: 50px;
+      padding-left: 18px;
+      margin-bottom: 12px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      img {
+        width: 15px;
+        height: 15px;
+        margin-right: 9px;
+      }
+      .text {
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #666666;
+      }
+    }
+  }
+}

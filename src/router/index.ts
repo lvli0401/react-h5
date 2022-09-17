@@ -20,8 +20,24 @@ const routes: Array<RouteItem> = [
     component: lazy(() => import('@pages/Data')),
   },
   {
-    path: 'message',
-    component: lazy(() => import('@/pages/Messages')),
+    path: "user",
+    component: lazy(() => import("@/pages/UserCenter")),
+  },
+  {
+    path: "venuesInfo",
+    component: lazy(() => import("@/pages/VenuesInfo")),
+  },
+  {
+    path: "record",
+    component: lazy(() => import("@/pages/Record")),
+  },
+  {
+    path: "venueBooking",
+    component: lazy(() => import("@/pages/VenueBooking")),
+  },
+  {
+    path: "message",
+    component: lazy(() => import("@/pages/Messages")),
   },
   {
     path: 'my',
