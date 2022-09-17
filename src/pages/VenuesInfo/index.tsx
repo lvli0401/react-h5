@@ -1,6 +1,6 @@
-import React, { RefObject, useState } from "react";
-import dayjs from "dayjs";
-import { LeftOutline, DownFill } from "antd-mobile-icons";
+import React, { RefObject, useState } from 'react'
+import dayjs from 'dayjs'
+import { LeftOutline, DownFill } from 'antd-mobile-icons'
 import {
   Form,
   Input,
@@ -16,22 +16,22 @@ import {
   Stepper,
   Switch,
   Image,
-} from "antd-mobile";
-import type { DatePickerRef } from "antd-mobile/es/components/date-picker";
-import styles from "./index.module.scss";
+} from 'antd-mobile'
+import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
+import styles from './index.module.scss'
 
 const basicColumns = [
   [
-    { label: "周一", value: "Mon" },
-    { label: "周二", value: "Tues" },
-    { label: "周三", value: "Wed" },
-    { label: "周四", value: "Thur" },
-    { label: "周五", value: "Fri" },
+    { label: '周一', value: 'Mon' },
+    { label: '周二', value: 'Tues' },
+    { label: '周三', value: 'Wed' },
+    { label: '周四', value: 'Thur' },
+    { label: '周五', value: 'Fri' },
   ],
-];
+]
 
 const Venues: React.FC<any> = () => {
-  const [value, setValue] = useState<(string | null)[]>([]);
+  const [value, setValue] = useState<(string | null)[]>([])
 
   return (
     <div className={styles.container}>
@@ -62,7 +62,7 @@ const Venues: React.FC<any> = () => {
           value={value}
           onConfirm={setValue}
           onSelect={(val, extend) => {
-            console.log("onSelect", val, extend.items);
+            console.log('onSelect', val, extend.items)
           }}
         >
           {(items, { open }) => {
@@ -75,7 +75,7 @@ const Venues: React.FC<any> = () => {
 
                 <div className={styles.venueName}>
                   {items.every((item) => item === null)
-                    ? "默认场馆"
+                    ? '默认场馆'
                     : items.map((item) => item?.label)}
                 </div>
                 <div className={styles.bar} onClick={open}>
@@ -83,7 +83,7 @@ const Venues: React.FC<any> = () => {
                   <DownFill />
                 </div>
               </div>
-            );
+            )
           }}
         </Picker>
       </div>
@@ -100,7 +100,7 @@ const Venues: React.FC<any> = () => {
           <Form.Item
             name="name"
             label="姓名"
-            rules={[{ required: true, message: "姓名不能为空" }]}
+            rules={[{ required: true, message: '姓名不能为空' }]}
           >
             <Input onChange={console.log} placeholder="请输入姓名" />
           </Form.Item>
@@ -108,7 +108,7 @@ const Venues: React.FC<any> = () => {
           <Form.Item
             name="phone"
             label="手机号"
-            rules={[{ required: true, message: "手机号不能为空" }]}
+            rules={[{ required: true, message: '手机号不能为空' }]}
           >
             <Input onChange={console.log} placeholder="请输入手机号" />
           </Form.Item>
@@ -116,14 +116,14 @@ const Venues: React.FC<any> = () => {
           <Form.Item
             name="teamName"
             label="团队名"
-            rules={[{ required: true, message: "团队名不能为空" }]}
+            rules={[{ required: true, message: '团队名不能为空' }]}
           >
             <Input onChange={console.log} placeholder="请输入团队名" />
           </Form.Item>
           <Form.Item
             name="address"
             label="排练内容"
-            rules={[{ required: true, message: "排练内容不能为空" }]}
+            rules={[{ required: true, message: '排练内容不能为空' }]}
           >
             <TextArea
               placeholder="请输入排练内容"
@@ -135,7 +135,7 @@ const Venues: React.FC<any> = () => {
           <Form.Item
             name="teamName"
             label="预约人数"
-            rules={[{ required: true, message: "预约人数不能为空" }]}
+            rules={[{ required: true, message: '预约人数不能为空' }]}
           >
             <Input onChange={console.log} placeholder="请输入预约人数" />
           </Form.Item>
@@ -144,32 +144,32 @@ const Venues: React.FC<any> = () => {
             label="预约日期"
             trigger="onConfirm"
             onClick={(e, datePickerRef: RefObject<DatePickerRef>) => {
-              datePickerRef.current?.open();
+              datePickerRef.current?.open()
             }}
-            rules={[{ required: true, message: "预约日期不能为空" }]}
+            rules={[{ required: true, message: '预约日期不能为空' }]}
           >
             <DatePicker>
               {(value) =>
-                value ? dayjs(value).format("YYYY-MM-DD") : "请选择日期"
+                value ? dayjs(value).format('YYYY-MM-DD') : '请选择日期'
               }
             </DatePicker>
           </Form.Item>
           <Form.Item name="favoriteFruits" label="时段选择">
             <Selector
               style={{
-                "--padding": "2px",
+                '--padding': '2px',
               }}
               columns={3}
               options={[
-                { label: "上午", value: "apple" },
-                { label: "下午", value: "orange" },
-                { label: "晚上", value: "banana" },
+                { label: '上午', value: 'apple' },
+                { label: '下午', value: 'orange' },
+                { label: '晚上', value: 'banana' },
               ]}
             />
           </Form.Item>
         </Form>
       </div>
     </div>
-  );
-};
-export default Venues;
+  )
+}
+export default Venues
