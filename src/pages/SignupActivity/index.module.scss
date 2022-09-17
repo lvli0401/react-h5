@@ -1,0 +1,109 @@
+%common-underline {
+  position: relative;
+  padding: 15px 0 10px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 307px;
+    height: 1px;
+    background: #efefef;
+  }
+}
+%common-form-label {
+  & > span {
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #333333;
+    line-height: 20px;
+    white-space: noWrap;
+    margin-right: 12px;
+  }
+}
+.signup {
+  padding: 20px 16px 50px;
+  background: #f5f5f5;
+  height: 100vh;
+  .form {
+    width: 343px;
+    max-height: 620px;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 18px 18px;
+
+    .title {
+      @extend %common-underline;
+      & > span {
+        &:nth-child(1) {
+          font-size: 14px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #333333;
+          line-height: 20px;
+        }
+        &:nth-child(2) {
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #ff6118;
+          line-height: 17px;
+        }
+      }
+    }
+
+    .input {
+      display: flex;
+      @extend %common-underline;
+      @extend %common-form-label;
+
+      &Item {
+        --font-size: 14px;
+      }
+    }
+
+    .textarea {
+      display: flex;
+      @extend %common-underline;
+      @extend %common-form-label;
+
+      &Item {
+        --font-size: 14px;
+      }
+    }
+
+    .banner {
+      margin-top: 15px;
+      @extend %common-form-label;
+
+      &Upload {
+        margin-top: 10px;
+        --cell-size: 90px;
+        :global {
+          .adm-space {
+            --gap-horizontal: 10px;
+          }
+        }
+      }
+    }
+  }
+  .button {
+    width: 343px;
+    height: 50px;
+    background: #ff6118;
+    border-radius: 27px;
+    font-size: 18px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 50px;
+    text-align: center;
+    position: fixed;
+    left: 16px;
+    bottom: 50px;
+  }
+}

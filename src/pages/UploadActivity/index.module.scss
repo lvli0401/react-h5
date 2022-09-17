@@ -69,16 +69,8 @@
       margin-bottom: 10px;
     }
     .uploadMedia {
-      //   width: 99px;
-      //   height: 99px;
       --cell-size: 90px;
       :global {
-        // .adm-space-horizontal.adm-space-wrap {
-        //   margin-bottom: 0;
-        // }
-        // .adm-space-horizontal.adm-space-wrap > .adm-space-item {
-        //   padding-bottom: 0;
-        // }
         .adm-space {
           --gap-horizontal: 10px;
         }

@@ -46,14 +46,14 @@ const Home: React.FC<Record<string, never>> = () => {
         <img alt='' src='' className={styles.banner} />
         <div className={styles.entry}>
           {entryList.map((v) => (
-            <div key={v.icon}>
+            <div key={v.text}>
               <img src={v.icon} />
               <div>{v.text}</div>
             </div>
           ))}
         </div>
         <div className={styles.venueTitle}>活动风采</div>
-        {venueList.map(v => <VenueCard key={v.link} data={v} />)}
+        {venueList.map(v => <VenueCard key={v.title} data={v} />)}
       </div>
     </Layout>
   )
