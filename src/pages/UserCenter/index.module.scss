@@ -2,6 +2,10 @@
   width: 100%;
   min-height: 100vh;
   background: #F5F5F5;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   .header {
     display: flex;
@@ -23,94 +27,71 @@
     }
   }
 
-  .card {
+  .loginBox {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    position: relative;
     width: 343px;
-    margin-left: 16px;
+    height: 160px;
+    margin-top: 30px;
     background: #FFFFFF;
-    border-radius: 6px;
-    margin-top: 16px;
+    border-radius: 8px;
 
-    .cardItem {
-      width: 307px;
-      height: 45px;
-      line-height: 45px;
-      border-bottom: 1px solid #efefef;
+    .rightBar {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      height: 17px;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #999999;
+      line-height: 17px;
+    }
 
-      &:last-child {
-        border-bottom: none;
+    .avatar {
+      width: 56px;
+      height: 56px;
+      background: #FF6118;
+      margin-bottom: 7px;
+    }
+
+    .loginText {
+      width: 36px;
+      height: 25px;
+      font-size: 18px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #333333;
+      line-height: 25px;
+    }
+  }
+
+  .card {
+    width: 343px;
+    margin-top: 12px;
+
+    .item {
+      display: flex;
+      align-items: center;
+      width: 343px;
+      height: 50px;
+      padding-left: 18px;
+      margin-bottom: 12px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      img {
+        width: 15px;
+        height: 15px;
+        margin-right: 9px;
       }
-
-      .itemLabel {
-        display: inline-block;
-        width: 65px;
-        margin-right: 5px;
-        height: 20px;
+      .text {
         font-size: 14px;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
-        color: #333333;
-        line-height: 20px;
-      }
-
-      .itemContent {
-        flex: 1;
-        font-size: 14px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #999999;
-      }
-
-      .isAudit {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .btnBox {
-          display: flex;
-          .btnSuc {
-            width: 68px;
-            height: 24px;
-            line-height: 24px;
-            text-align: center;
-            background: #FF6118;
-            border-radius: 14px;
-            font-size: 12px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
-            color: #FFFFFF;
-            margin-right: 10px;
-          }
-
-          .btnFail {
-            width: 68px;
-            line-height: 24px;
-            text-align: center;
-            height: 24px;
-            border-radius: 14px;
-            border: 1px solid #FF6118;
-            font-size: 12px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: #FF6118;
-          }
-        }
-
-      }
-
-      .auditSuccess {
-        font-size: 14px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #FF6118;
-      }
-
-      .auditFailed {
-        font-size: 14px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #999999;
+        color: #666666;
       }
     }
   }
