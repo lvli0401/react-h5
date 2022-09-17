@@ -52,7 +52,7 @@ const Home: React.FC<Record<string, never>> = () => {
             </div>
           ))}
         </div>
-        <div className={styles.venueTitle}>场馆信息</div>
+        <div className={styles.venueTitle}>活动风采</div>
         {venueList.map(v => <VenueCard key={v.link} data={v} />)}
       </div>
     </Layout>

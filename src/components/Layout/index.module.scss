@@ -4,6 +4,7 @@
   border-bottom: env(safe-area-inset-bottom);
   height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
 
   .nav {
     width: 100%;

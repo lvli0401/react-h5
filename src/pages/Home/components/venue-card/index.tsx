@@ -12,9 +12,8 @@ const VenueCard  = ({data}: {data: dataProps}) => {
       <img src={data.imgurl}/>
       <div className={styles.content}>
         <div>
-          <p>标题: {data.title}</p>
+          {data.title}
         </div>
-        <div>预约</div>
       </div>
     </div>
   )
