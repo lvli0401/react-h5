@@ -8,23 +8,32 @@ import {
   UnorderedListOutline,
   UserOutline,
 } from "antd-mobile-icons";
-import imgHome from '@images/img-首页-选中@2x.png'
+import imgHome from '@images/img-首页-默认@2x.png'
+import imgHomeActive from '@images/img-首页-选中@2x.png'
+import imgData from '@images/img-数据中心-默认@2x.png'
+import imgDataActive from '@images/img-数据中心-选中@2x.png'
+import imgMy from '@images/img-个人中心-默认@2x.png'
+import imgMyActive from '@images/img-个人中心-选中@2x.png'
+import cn from 'classnames'
 
 const tabs = [
   {
-    key: "/home",
+    path: "/home",
     title: "首页",
     icon: imgHome,
+    activeIcon: imgHomeActive,
   },
   {
-    key: "/data",
+    path: "/data",
     title: "数据中心",
-    icon: '../../assets/img/img-数据中心-默认@2x.png',
+    icon: imgData,
+    activeIcon: imgDataActive,
   },
   {
-    key: "/my",
+    path: "/my",
     title: "个人中心",
-    icon: '../../assets/img/img-个人中心-默认@2x.png'
+    icon: imgMy,
+    activeIcon: imgMyActive,
   },
 ];
 const Layout: React.FC<any> = ({ children }) => {
@@ -40,12 +49,14 @@ const Layout: React.FC<any> = ({ children }) => {
     <div className={styles.container}>
       {children}
       <div className={styles.nav}>
-        {/* <TabBar activeKey={pathname} onChange={value => setRouteActive(value)}>
-          {tabs.map(item => (
-            <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
-          ))}
-        </TabBar> */}
-        {tabs.map(v => <img key={v.icon} src={v.icon} />)}
+        {tabs.map(v => 
+          <div key={v.path} className={cn({
+            [styles.navItem]: true,
+            [styles.navItemActive]: pathname === v.path,
+          })} onClick={() => setRouteActive(v.path)}>
+            <img src={pathname === v.path ? v.activeIcon : v.icon} />
+            <span>{v.title}</span>
+          </div>)}
       </div>
     </div>
   );
