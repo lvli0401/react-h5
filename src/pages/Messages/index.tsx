@@ -1,5 +1,5 @@
-import React, { useCallback, useRef, useState } from "react";
-import Layout from "@components/Layout";
+import React, { useCallback, useRef, useState } from 'react'
+import Layout from '@components/Layout'
 import {Button} from 'antd-mobile'
 import Table from 'rc-table'
 import QRCode from 'qrcode.react'
@@ -32,15 +32,15 @@ const Messages: React.FC<any> = () => {
       key: 'operations',
       render: () => <a href="#">Delete</a>,
     },
-  ];
+  ]
   
   const data = [
     { name: 'Jack', age: 28, address: 'some where', key: '1' },
     { name: 'Rose', age: 36, address: 'some where', key: '2' },
-  ];
+  ]
   const handleQr = useCallback(() => {
-    const canvasImg: any = document.getElementById('qrCode'); // 获取canvas类型的二维码
-    setImgSrc(canvasImg?.toDataURL('image/png'));
+    const canvasImg: any = document.getElementById('qrCode') // 获取canvas类型的二维码
+    setImgSrc(canvasImg?.toDataURL('image/png'))
   }, [])
   return <Layout>
     <Button onClick={handleQr}>生成二维码</Button>
@@ -63,6 +63,6 @@ const Messages: React.FC<any> = () => {
     </div>
      
     <Table columns={columns} data={data} />
-  </Layout>;
-};
-export default Messages;
+  </Layout>
+}
+export default Messages

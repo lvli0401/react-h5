@@ -35,7 +35,7 @@ const Layout: React.FC<any> = ({ children }) => {
   const { pathname } = location
 
   const setRouteActive = (value: string) => {
-    navigate(value)
+    navigate(value, {replace: true})
   }
 
   return (

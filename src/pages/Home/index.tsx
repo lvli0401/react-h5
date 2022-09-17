@@ -1,9 +1,9 @@
-import React from "react";
-import styles from "./index.module.scss";
-import Layout from "@components/Layout";
-import { Link } from "react-router-dom";
-import { Button } from "antd-mobile";
-import VenueCard from './components/venue-card';
+import React from 'react'
+import styles from './index.module.scss'
+import Layout from '@components/Layout'
+import { Link } from 'react-router-dom'
+import { Button } from 'antd-mobile'
+import VenueCard from './components/venue-card'
 const entryList = [
   {
     icon: '',
@@ -42,18 +42,20 @@ const venueList = [
 const Home: React.FC<Record<string, never>> = () => {
   return (
     <Layout>
-      <img alt='' src='' className={styles.banner} />
-      <div className={styles.entry}>
-        {entryList.map((v) => (
-          <div key={v.icon}>
-            <img src={v.icon} />
-            <div>{v.text}</div>
-          </div>
-        ))}
+      <div className={styles.home}>
+        <img alt='' src='' className={styles.banner} />
+        <div className={styles.entry}>
+          {entryList.map((v) => (
+            <div key={v.icon}>
+              <img src={v.icon} />
+              <div>{v.text}</div>
+            </div>
+          ))}
+        </div>
+        <div className={styles.venueTitle}>场馆信息</div>
+        {venueList.map(v => <VenueCard key={v.link} data={v} />)}
       </div>
-      <div className={styles.venueTitle}>场馆信息</div>
-      {venueList.map(v => <VenueCard key={v.link} data={v} />)}
     </Layout>
-  );
-};
-export default Home;
+  )
+}
+export default Home

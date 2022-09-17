@@ -1,5 +1,9 @@
 .container {
-  padding-bottom: 40px;
+  padding-bottom: 50px;
+  border-bottom: constant(safe-area-inset-bottom);
+  border-bottom: env(safe-area-inset-bottom);
+  height: 100vh;
+  overflow-y: auto;
 
   .nav {
     width: 100%;
@@ -13,6 +17,8 @@
     .navItem {
       flex: 1;
       height: 50px;
+      margin-bottom: constant(safe-area-inset-bottom);
+      margin-bottom: env(safe-area-inset-bottom);
       background-color: white;
       display: flex;
       align-items: center;
