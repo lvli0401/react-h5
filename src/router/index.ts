@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy } from 'react'
 export interface RouteItem {
   path: string; //路径,当路由为index路由时path为父级的path
   component?: any; //懒加载组件
@@ -8,28 +8,32 @@ export interface RouteItem {
 }
 const routes: Array<RouteItem> = [
   {
-    path: "/",
-    redirect: "home",
+    path: '/',
+    redirect: 'home',
   },
   {
-    path: "home",
-    component: lazy(() => import("@pages/Home")),
+    path: 'home',
+    component: lazy(() => import('@pages/Home')),
   },
   {
-    path: "data",
-    component: lazy(() => import("@pages/Data")),
+    path: 'data',
+    component: lazy(() => import('@pages/Data')),
   },
   {
-    path: "message",
-    component: lazy(() => import("@/pages/Messages")),
+    path: 'message',
+    component: lazy(() => import('@/pages/Messages')),
   },
   {
-    path: "my",
-    component: lazy(() => import("@/pages/My")),
+    path: 'my',
+    component: lazy(() => import('@/pages/My')),
   },
   {
-    path: "*",
-    component: lazy(() => import("@pages/Error/404")),
+    path: 'upload-activity',
+    component: lazy(() => import('@/pages/UploadActivity')),
   },
-];
-export default routes;
+  {
+    path: '*',
+    component: lazy(() => import('@pages/Error/404')),
+  },
+]
+export default routes
