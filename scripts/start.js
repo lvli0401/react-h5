@@ -111,6 +111,12 @@ checkBrowsers(paths.appPath, isInteractive)
       ...createDevServerConfig(proxyConfig, urls.lanUrlForConfig),
       host: HOST,
       port,
+      // proxy: {
+      //       '/nan_qiao': {
+      //         target: 'http://47.100.31.167:8081',
+      //         changeOrigin: true,
+      //       }
+      // },
     };
     const devServer = new WebpackDevServer(serverConfig, compiler);
     // Launch WebpackDevServer.

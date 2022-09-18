@@ -20,36 +20,36 @@ const routes: Array<RouteItem> = [
     component: lazy(() => import('@pages/Data')),
   },
   {
-    path: "user",
-    component: lazy(() => import("@/pages/UserCenter")),
+    path: 'user-center',
+    component: lazy(() => import('@/pages/UserCenter')),
   },
   {
-    path: "venuesInfo",
-    component: lazy(() => import("@/pages/VenuesInfo")),
+    path: 'venuesInfo',
+    component: lazy(() => import('@/pages/VenuesInfo')),
   },
   {
-    path: "record",
-    component: lazy(() => import("@/pages/Record")),
+    path: 'record',
+    component: lazy(() => import('@/pages/Record')),
   },
   {
-    path: "venueBooking",
-    component: lazy(() => import("@/pages/VenueBooking")),
+    path: 'venueBooking',
+    component: lazy(() => import('@/pages/VenueBooking')),
   },
   {
-    path: "message",
-    component: lazy(() => import("@/pages/Messages")),
+    path: 'message',
+    component: lazy(() => import('@/pages/Messages')),
   },
   {
-    path: 'my',
-    component: lazy(() => import('@/pages/My')),
-  },
-  {
-    path: 'upload-activity',
-    component: lazy(() => import('@/pages/UploadActivity')),
+    path: 'upload-demeanor',
+    component: lazy(() => import('@/pages/UploadDemeanor')),
   },
   {
     path: 'signup-activity',
     component: lazy(() => import('@/pages/SignupActivity')),
+  },
+  {
+    path: 'demeanor-info',
+    component: lazy(() => import('@/pages/DemeanorInfo')),
   },
   {
     path: '*',

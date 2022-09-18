@@ -11,13 +11,12 @@ const defaultConfig: RequestConfig = {
   timeout: 120 * 1000,
   withCredentials: true,
   headers: {
-    "content-type": "application/x-www-form-urlencoded",
+    'content-type': 'application/x-www-form-urlencoded',
   },
-};
-const request = (method: "get" | "post", url: string, params?: any, config?: AxiosRequestConfig) => {
-  const finalConfig: RequestConfig = { ...defaultConfig, ...config };
-  const instance: AxiosInstance = axios.create(finalConfig);
-
+}
+const request = (method: 'get' | 'post', url: string, params?: any, config?: AxiosRequestConfig) => {
+  const finalConfig: RequestConfig = { ...defaultConfig, ...config }
+  const instance: AxiosInstance = axios.create(finalConfig)
   instance.interceptors.request.use((req: AxiosRequestConfig<any>) => {
     if (storage.get('accessToken')) {
       req.headers!.accessToken = storage.get('accessToken');
@@ -29,36 +28,34 @@ const request = (method: "get" | "post", url: string, params?: any, config?: Axi
   },
     error => {
       return Promise.reject(error);
-    })
+    }
+  )
 
   instance.interceptors.response.use(
     response => {
       if (response.status === 200 && response.data.success) {
-        return response.data;
-      } else if (response.status === 400) {
-        checkRedirect();
-        return Promise.reject('未登录');
+        return response.data
       } else {
-        console.log((response.data && response.data.msg) || "糟糕，出错了");
-        return Promise.reject(response.data);
+        console.log((response.data && response.data.msg) || '糟糕，出错了')
+        return Promise.reject(response.data)
       }
     },
     error => {
-      return Promise.reject(error);
+      return Promise.reject(error)
     }
-  );
+  )
   Object.keys(params as object).forEach(item => {
     if (item && (params[item] === undefined || params[item] === null)) {
-      delete params[item];
+      delete params[item]
     }
-  });
-  const data = finalConfig.headers["content-type"] === "application/json" ? params : QueryString.stringify(params);
+  })
+  const data = finalConfig.headers['content-type'] === 'application/json' ? params : QueryString.stringify(params)
 
   return instance({
     method,
     url,
-    params: method === "get" && params,
-    data: method === "post" && data,
-  });
-};
-export default request;
+    params: method === 'get' && params,
+    data: method === 'post' && data,
+  })
+}
+export default request

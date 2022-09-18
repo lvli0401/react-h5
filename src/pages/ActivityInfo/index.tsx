@@ -5,10 +5,16 @@ import {
   Form,
   Input,
   Button,
+  Dialog,
+  Space,
+  Tag,
   TextArea,
   Picker,
   DatePicker,
   Selector,
+  Slider,
+  Stepper,
+  Switch,
   Image,
 } from 'antd-mobile'
 import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
@@ -31,14 +37,14 @@ const Venues: React.FC<any> = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <LeftOutline fontSize={16} />
-        <span className={styles.title}>场馆预约审核列表</span>
+        <span className={styles.title}>活动预约审核列表</span>
       </div>
       <div className={styles.info}>
         <Image
           className={styles.venuePic}
           src="https://cdn.leoao.com/%20litta/mini/index/card.png"
         />
-        <h2 className={styles.subTitle}>场馆简介信息</h2>
+        <h2 className={styles.subTitle}>活动简介信息</h2>
         <div className={styles.infoContent}>
           <p className={styles.infoWord}>这里是信息内容</p>
         </div>
@@ -69,7 +75,7 @@ const Venues: React.FC<any> = () => {
 
                 <div className={styles.venueName}>
                   {items.every((item) => item === null)
-                    ? '默认场馆'
+                    ? '默认活动'
                     : items.map((item) => item?.label)}
                 </div>
                 <div className={styles.bar} onClick={open}>
