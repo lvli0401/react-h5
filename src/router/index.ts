@@ -40,12 +40,12 @@ const routes: Array<RouteItem> = [
     component: lazy(() => import('@/pages/Messages')),
   },
   {
-    path: 'upload-activity',
-    component: lazy(() => import('@/pages/UploadActivity')),
+    path: 'upload-demeanor',
+    component: lazy(() => import('@/pages/UploadDemeanor')),
   },
   {
     path: 'signup-activity',
-    component: lazy(() => import('@/pages/SignupDemeanor')),
+    component: lazy(() => import('@/pages/SignupActivity')),
   },
   {
     path: 'demeanor-info',

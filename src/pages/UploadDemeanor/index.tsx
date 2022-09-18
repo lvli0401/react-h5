@@ -2,10 +2,11 @@ import React, { useCallback, useState } from 'react'
 import styles from './index.module.scss'
 import {ImageUploader, Input} from 'antd-mobile'
 import { ImageUploadItem } from 'antd-mobile/es/components/image-uploader'
+import VideoUpload, {fileType} from '@/components/VideoUpload'
 
 
 const UploadActivity = () => {
-  const [fileList, setFileList] = useState<ImageUploadItem[]>([])
+  const [fileList, setFileList] = useState<fileType[]>([])
   const [success, setSuccess] = useState(false)
   const mockUpload = async (file: File) => {
     return {
@@ -13,12 +14,17 @@ const UploadActivity = () => {
     }
   }
   const handleUpload = useCallback(
+    (files: fileType[]) => {
+      setFileList(files)
+    },
+    [],
+  )
+  const handleSubmit = useCallback(
     () => {
       setSuccess(true)
     },
     [],
   )
-  
   if (!success)
     return (
       <div className={styles.upload}>
@@ -31,17 +37,24 @@ const UploadActivity = () => {
         </div>
         <div className={styles.content}>
           <div>
-            <span>风采标题</span>
+            <span>风采图片</span>
             <span>（必填）</span>
           </div>
           <ImageUploader
             value={fileList}
-            onChange={setFileList}
+            // onChange={setFileList}
             upload={mockUpload}
             className={styles.uploadMedia}
           />
         </div>
-        <div className={styles.button} onClick={handleUpload}>上传风采信息</div>
+        <div className={styles.content}>
+          <div>
+            <span>风采视频</span>
+            <span>（必填）</span>
+          </div>
+          <VideoUpload onUpload={handleUpload} fileList={fileList} />
+        </div>
+        <div className={styles.button} onClick={handleSubmit}>上传风采信息</div>
       </div>
     )
   return (
