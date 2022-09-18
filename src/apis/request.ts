@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosInstance } from "axios";
 import { API_DOMAIN } from "./config";
 import QueryString from "qs";
+import { checkRedirect } from '@utils/index';
+import storage from "@utils/storage";
 interface RequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
 }
@@ -15,10 +17,27 @@ const defaultConfig: RequestConfig = {
 const request = (method: "get" | "post", url: string, params?: any, config?: AxiosRequestConfig) => {
   const finalConfig: RequestConfig = { ...defaultConfig, ...config };
   const instance: AxiosInstance = axios.create(finalConfig);
+
+  instance.interceptors.request.use((req: AxiosRequestConfig<any>) => {
+    if (storage.get('accessToken')) {
+      req.headers!.accessToken = storage.get('accessToken');
+    } else {
+      checkRedirect();
+      return Promise.reject('未登录');
+    }
+    return req;
+  },
+    error => {
+      return Promise.reject(error);
+    })
+
   instance.interceptors.response.use(
     response => {
       if (response.status === 200 && response.data.success) {
         return response.data;
+      } else if (response.status === 400) {
+        checkRedirect();
+        return Promise.reject('未登录');
       } else {
         console.log((response.data && response.data.msg) || "糟糕，出错了");
         return Promise.reject(response.data);

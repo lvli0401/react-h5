@@ -57,7 +57,18 @@ const checkRedirect = async () => {
   // const res = await getTokenByCode();
   // return res;
 
-  // storage.set('nqToken', res.token);
+  const result = {
+    accessToken: '',
+    userInfoDTO: {
+      "id": 1,
+      "headPic": "123456",
+      "wechatName": "syxyanc",
+      "userType": 0,
+      "createdAt": 1663492654622
+    }
+  }
+  storage.set('accessToken', result.accessToken);
+  storage.set('userInfo', result.userInfoDTO);
 };
 
 export {

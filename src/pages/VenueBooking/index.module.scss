@@ -34,9 +34,9 @@
     margin-top: 16px;
 
     .cardItem {
+      display: flex;
+      align-items: center;
       width: 307px;
-      height: 45px;
-      line-height: 45px;
       border-bottom: 1px solid #efefef;
 
       &:last-child {
@@ -44,19 +44,18 @@
       }
 
       .itemLabel {
-        display: inline-block;
         width: 65px;
         margin-right: 5px;
-        height: 20px;
         font-size: 14px;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
         color: #333333;
-        line-height: 20px;
+        line-height: 45px;
       }
 
       .itemContent {
         flex: 1;
+        line-height: 20px;
         font-size: 14px;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
@@ -67,8 +66,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         .btnBox {
           display: flex;
+
           .btnSuc {
             width: 68px;
             height: 24px;

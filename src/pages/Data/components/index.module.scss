@@ -1,0 +1,40 @@
+.topBar {
+  width: 343px;
+  height: 50px;
+  margin-top: 20px;
+  padding-left: 18px;
+  line-height: 50px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #333333;
+}
+
+.card {
+  width: 343px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 0 18px 14px 18px;
+  margin-top: 12px;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 50px;
+    height: 50px;
+    margin-bottom: 14px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #333333;
+    border-bottom: 1px solid #efefef;
+
+  }
+
+  .tCenter {
+    text-align: center;
+  }
+}

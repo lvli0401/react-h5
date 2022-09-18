@@ -11,7 +11,7 @@ const storage = {
       data: null,
     };
     if (maxAge) {
-      let expTime = Date.now() + maxAge * 1000;
+      const expTime = Date.now() + maxAge * 1000;
       temp.expTime = expTime;
     }
     temp.data = value;

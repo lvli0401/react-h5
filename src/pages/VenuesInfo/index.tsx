@@ -5,16 +5,10 @@ import {
   Form,
   Input,
   Button,
-  Dialog,
-  Space,
-  Tag,
   TextArea,
   Picker,
   DatePicker,
   Selector,
-  Slider,
-  Stepper,
-  Switch,
   Image,
 } from "antd-mobile";
 import type { DatePickerRef } from "antd-mobile/es/components/date-picker";

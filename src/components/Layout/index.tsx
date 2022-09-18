@@ -23,7 +23,7 @@ const tabs = [
     activeIcon: imgDataActive,
   },
   {
-    path: '/my',
+    path: '/user',
     title: '个人中心',
     icon: imgMy,
     activeIcon: imgMyActive,

@@ -1,0 +1,52 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: #F5F5F5;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding-left: 19px;
+    box-sizing: border-box;
+    background-color: #fff;
+
+    .title {
+      height: 22px;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #222222;
+      line-height: 22px;
+      margin-left: 13px;
+    }
+  }
+
+  .tab {
+    width: 100%;
+    height: 48px;
+    border-bottom: 1px solid rgba(255, 97, 24, 1);
+    display: flex;
+
+    .tabItem {
+      width: 50%;
+      line-height: 48px;
+      text-align: center;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(255, 97, 24, 1);
+
+      &.active {
+        color: #fff;
+        background: #FF6118;
+      }
+    }
+  }
+
+}

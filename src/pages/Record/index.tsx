@@ -1,33 +1,42 @@
-import React, { RefObject, useState } from "react";
+import React, { RefObject, useState, useEffect } from "react";
 import { LeftOutline } from "antd-mobile-icons";
 import styles from "./index.module.scss";
+import { bookingRecord } from '@/apis/index';
+
+
+const auditStatus = [
+  '审核失败',
+  '审核中',
+  '审核通过',
+];
+
+interface bookingRecordsProps {
+  id: number;
+  bookInfo: string;
+  bookTime: string;
+  approveStatus: number;
+  remark: string;
+  createTime?: string;
+}
 
 const Record: React.FC<any> = () => {
-  const [value, setValue] = useState<(string | null)[]>([]);
+  const [list, setList] = useState<bookingRecordsProps[]>([]);
+  const getRecordList = async () => {
+    await bookingRecord();
+    // const {result} = await bookingRecord();
+    const result = {
+      bookingRecords: [{
+        id: 1,
+        bookInfo: "活动名/ 场馆地址",
+        bookTime: "2022-01-01",
+        approveStatus: 0,
+        remark: "一些注意事项一些注意事项一些注意事项一些注意事项",
+      }]
+    }
+    setList(result.bookingRecords);
+  }
 
-  const list = [
-    {
-      id: 1,
-      date: "2022-02-20",
-      address: "背景",
-      activity: "万",
-      status: 1,
-    },
-    {
-      id: 1,
-      date: "2022-02-230",
-      address: "背景da",
-      activity: "万",
-      status: 1,
-    },
-    {
-      id: 1,
-      date: "2022-02210",
-      address: "背景",
-      activity: "万",
-      status: 1,
-    },
-  ];
+  useEffect(() => { getRecordList() }, [])
 
   return (
     <div className={styles.container}>
@@ -35,24 +44,29 @@ const Record: React.FC<any> = () => {
         <LeftOutline fontSize={16} />
         <span className={styles.title}>预约记录</span>
       </div>
-      <div className={styles.card}>
-        <div className={styles.cardItem}>
-          <span className={styles.itemLabel}>预约时间</span>
-          <span className={styles.itemContent}>2022.10.10</span>
-        </div>
-        <div className={styles.cardItem}>
-          <span className={styles.itemLabel}>场馆/活动</span>
-          <span className={styles.itemContent}>奉贤区南桥镇南星路333号4楼</span>
-        </div>
-        <div className={styles.cardItem}>
-          <span className={styles.itemLabel}>预约结果</span>
-          <span className={styles.itemContent}>成功</span>
-        </div>
-        <div className={styles.cardItem}>
-          <span className={styles.itemLabel}>注意事项</span>
-          <span className={styles.itemContent}>需持48小时证明</span>
-        </div>
-      </div>
+      {
+        list.map((i) => (
+          <div className={styles.card} key={i.id}>
+            <div className={styles.cardItem}>
+              <span className={styles.itemLabel}>预约时间</span>
+              <span className={styles.itemContent}>{i.bookTime}</span>
+            </div>
+            <div className={styles.cardItem}>
+              <span className={styles.itemLabel}>场馆/活动</span>
+              <span className={styles.itemContent}>{i.bookInfo}</span>
+            </div>
+            <div className={styles.cardItem}>
+              <span className={styles.itemLabel}>预约结果</span>
+              <span className={styles.itemContent}>{auditStatus[i.approveStatus]}</span>
+            </div>
+            <div className={styles.cardItem}>
+              <span className={styles.itemLabel}>注意事项</span>
+              <span className={styles.itemContent}>{i.remark}</span>
+            </div>
+          </div>
+        ))
+      }
+
     </div>
   );
 };
