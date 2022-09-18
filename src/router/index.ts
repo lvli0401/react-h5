@@ -48,6 +48,10 @@ const routes: Array<RouteItem> = [
     component: lazy(() => import('@/pages/SignupDemeanor')),
   },
   {
+    path: 'demeanor-info',
+    component: lazy(() => import('@/pages/DemeanorInfo')),
+  },
+  {
     path: '*',
     component: lazy(() => import('@pages/Error/404')),
   },
