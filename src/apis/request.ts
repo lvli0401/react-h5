@@ -1,8 +1,8 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosInstance } from "axios";
-import { API_DOMAIN } from "./config";
-import QueryString from "qs";
-import { checkRedirect } from '@utils/index';
-import storage from "@utils/storage";
+import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosInstance } from 'axios'
+import { API_DOMAIN } from './config'
+import QueryString from 'qs'
+import { checkRedirect } from '@utils/index'
+import storage from '@utils/storage'
 interface RequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
 }
@@ -19,16 +19,16 @@ const request = (method: 'get' | 'post', url: string, params?: any, config?: Axi
   const instance: AxiosInstance = axios.create(finalConfig)
   instance.interceptors.request.use((req: AxiosRequestConfig<any>) => {
     if (storage.get('accessToken')) {
-      req.headers!.accessToken = storage.get('accessToken');
+      req.headers!.accessToken = storage.get('accessToken')
     } else {
-      checkRedirect();
-      return Promise.reject('未登录');
+      checkRedirect()
+      return Promise.reject('未登录')
     }
-    return req;
+    return req
   },
-    error => {
-      return Promise.reject(error);
-    }
+  error => {
+    return Promise.reject(error)
+  }
   )
 
   instance.interceptors.response.use(
@@ -49,7 +49,7 @@ const request = (method: 'get' | 'post', url: string, params?: any, config?: Axi
       delete params[item]
     }
   })
-  const data = finalConfig.headers['content-type'] === 'application/json' ? params : QueryString.stringify(params)
+  const data = ['application/json', 'multipart/form-data'].includes((finalConfig.headers['content-type'])?.toString()) ? params : QueryString.stringify(params)
 
   return instance({
     method,
