@@ -16,6 +16,7 @@ const VideoUpload = ({onUpload, fileList}: {onUpload: (files: fileType[]) => voi
   const handleChange = useCallback(
     async (e: any) => {
       const files = e.target.files
+      const preFileList = [...fileList]
       Array.prototype.forEach.call(files, (async (v: any) => {
         if (!imageType.test(v.type) && !videoType.test(v.type)) {
           return Toast.show('只能上传图片或视频')
@@ -23,11 +24,14 @@ const VideoUpload = ({onUpload, fileList}: {onUpload: (files: fileType[]) => voi
         const form = new FormData()
         form.append('file', v)
         await request('post', '/nan_qiao/file/upload', form, {headers: {
-          'Content-Type': 'multipart/form-data',
+          'content-type': 'multipart/form-data',
         },})
+        // preFileList.push({
+        //   // type: ''
+        // })
       }))
     },
-    [],
+    [fileList],
   )
     
   return (
