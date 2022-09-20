@@ -22,7 +22,9 @@ interface bookingRecordsProps {
 const Record: React.FC<any> = () => {
   const [list, setList] = useState<bookingRecordsProps[]>([]);
   const getRecordList = async () => {
-    await bookingRecord();
+    await bookingRecord({
+      openId: '1'
+    });
     // const {result} = await bookingRecord();
     const result = {
       bookingRecords: [{

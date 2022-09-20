@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from 'react'
+import React, { RefObject, useState, useEffect } from 'react'
 import dayjs from 'dayjs'
 import { LeftOutline, DownFill } from 'antd-mobile-icons'
 import {
@@ -12,6 +12,7 @@ import {
   Image,
 } from 'antd-mobile'
 import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
+import { stadiumInfoListAll } from '@/apis/index';
 import styles from './index.module.scss'
 
 const basicColumns = [
@@ -24,8 +25,70 @@ const basicColumns = [
   ],
 ]
 
+interface venuesProp {
+  code: string;
+  name: string;
+  note: string;
+  location: string;
+  seatingCapacity?: number;
+  showPhoto: string;
+  detailPhotos: string[];
+  timeRangeVos: object[];
+  status: number;
+}
+
 const Venues: React.FC<any> = () => {
-  const [value, setValue] = useState<(string | null)[]>([])
+  // const [value, setValue] = useState<String | null>(null);
+  const [list, setList] = useState<venuesProp[]>([]);
+  const [curVenue, setCurVenue] = useState<venuesProp>({
+    code: '',
+    name: '',
+    note: '',
+    status: -1,
+    "detailPhotos": [],
+    "showPhoto": "",
+    "location": "",
+    "timeRangeVos": [
+      {
+        "startTime": "08:00",
+        "endTime": "20:00",
+      }
+    ]
+  });
+
+  const getVenuesList = async () => {
+    await stadiumInfoListAll();
+    const vlist: venuesProp[] = [
+      {
+        code: '3-101',
+        name: '舞蹈室',
+        note: '舞蹈室简介',
+        status: 1,
+        "detailPhotos": [
+          "http://dummyimage.com/400x400",
+          "http://dummyimage.com/400x400"
+        ],
+        "showPhoto": "http://dummyimage.com/400x400",
+        "location": "南津路三号",
+        "timeRangeVos": [
+          {
+            "endTime": "05:56",
+            "startTime": "09:45"
+          }
+        ]
+      }
+    ];
+    setList(vlist);
+  }
+
+  // const changeVenue = (val:) => {
+  //   console.log(val, 'val');
+
+  // }
+
+  useEffect(() => {
+    getVenuesList();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -36,11 +99,11 @@ const Venues: React.FC<any> = () => {
       <div className={styles.info}>
         <Image
           className={styles.venuePic}
-          src="https://cdn.leoao.com/%20litta/mini/index/card.png"
+          src={curVenue.showPhoto}
         />
         <h2 className={styles.subTitle}>场馆简介信息</h2>
         <div className={styles.infoContent}>
-          <p className={styles.infoWord}>这里是信息内容</p>
+          <p className={styles.infoWord}>{curVenue.note}</p>
         </div>
         <h2 className={styles.subTitle}>开放时间</h2>
         <div className={styles.infoContent}>
@@ -48,16 +111,13 @@ const Venues: React.FC<any> = () => {
           <div className={styles.infoWord}>下午 14:00 - 20:00</div>
         </div>
         <h2 className={styles.subTitle}>地址信息</h2>
-        <div className={styles.infoWord}>上海市长宁区。。。</div>
+        <div className={styles.infoWord}>{curVenue.location}</div>
       </div>
       <div className={styles.changeVenues}>
         <Picker
           columns={basicColumns}
-          value={value}
-          onConfirm={setValue}
-          onSelect={(val, extend) => {
-            console.log('onSelect', val, extend.items)
-          }}
+        // value={value}
+        // onConfirm={(val) => changeVenue(val)}
         >
           {(items, { open }) => {
             return (

@@ -19,8 +19,15 @@ export const testRequest = (
   params: TestProps = {}
 ): AxiosPromise<ResponseData<UserInfo>> =>
   request("post", "http://expo.liufashi.top/type/getImg", params);
-
+interface bookingRecordProps {
+  openId?: string;
+}
 export const bookingRecord = (
+  params: bookingRecordProps = {}
+): AxiosPromise<ResponseData<UserInfo>> =>
+  request("post", "/nan_qiao/user_info/user_book_record", params);
+
+export const stadiumInfoListAll = (
   params: TestProps = {}
 ): AxiosPromise<ResponseData<UserInfo>> =>
-  request("post", "/nan_qiao/stadium/create", params);
+  request("post", "/nan_qiao/stadiumInfo/listAll", params);
