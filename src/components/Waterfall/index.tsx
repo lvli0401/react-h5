@@ -28,7 +28,7 @@ const Waterfall: FC<Props> = props => {
     marginV = 10,
     bufferHeight = 0,
     col = 3,
-    width = 200,
+    width = 166,
     concurrent = 10,
     extraItemHeight = 0,
     wrapClass,
@@ -48,7 +48,7 @@ const Waterfall: FC<Props> = props => {
           height: 0,
           items: []
         })),
-    [col]
+    [col, data]
   )
   
   const getLowestCol = (): any => {
@@ -193,7 +193,7 @@ const Waterfall: FC<Props> = props => {
     >
       {Array.isArray(children)
         ? cols.map((col, i) => (
-          <div key={i} style={{ marginLeft: marginH, width }}>
+          <div key={i} style={{ marginLeft: i % 2 > 0 ? marginH : 0, width }}>
             {col.items.map((node, i) => cloneElement(node, i))}
           </div>
         ))
