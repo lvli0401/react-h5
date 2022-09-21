@@ -1,0 +1,82 @@
+.imgList {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 210px;
+  overflow: auto;
+  .imgItem {
+    width: 90px;
+    height: 90px;
+    margin: 0 10px 10px 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-shrink: 0;
+    position: relative;
+
+    & > img {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .close {
+      position: relative;
+      margin-left: 70px;
+      width: 20px;
+      height: 20px;
+      background-color: rgba($color: #000000, $alpha: 0.5);
+      border-radius: 0 0 0 15px;
+    }
+
+    .close::before,
+    .close::after {
+      position: absolute;
+      content: " ";
+      background-color: white;
+      left: 50%;
+      top: 5px;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 10px;
+    }
+
+    .close::before {
+      transform: rotate(45deg);
+    }
+
+    .close::after {
+      transform: rotate(-45deg);
+    }
+  }
+  .maskUpload {
+    flex-shrink: 0;
+    width: 90px;
+    height: 90px;
+    background: #f5f5f5;
+    border-radius: 5px;
+    text-align: center;
+    padding: 27px 0 22px;
+
+    & > img {
+      width: 28px;
+      height: 24px;
+      margin: 0 auto 6px;
+      line-height: 0;
+    }
+
+    & > div {
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #c1c1c1;
+      line-height: 20px;
+    }
+  }
+}
+
+.input {
+  display: none;
+}

@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = function (app) {
   app.use(createProxyMiddleware('/nan_qiao', {
-    target : 'http://47.100.31.167:8081',
+    target : 'https://nanqiao-gzh-7293-4-1314017345.sh.run.tcloudbase.com',
     changeOrigin : true,
     // ws: true,
     // pathRewrite : {
