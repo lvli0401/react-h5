@@ -11,19 +11,19 @@ const defaultConfig: RequestConfig = {
   timeout: 120 * 1000,
   withCredentials: true,
   headers: {
-    'content-type': 'application/x-www-form-urlencoded',
+    'content-type': 'application/json',
   },
 }
-const request = (method: 'get' | 'post', url: string, params?: any, config?: AxiosRequestConfig) => {
+const request = (method: 'get' | 'post', url: string, params?: any, config?: AxiosRequestConfig): any => {
   const finalConfig: RequestConfig = { ...defaultConfig, ...config }
   const instance: AxiosInstance = axios.create(finalConfig)
   instance.interceptors.request.use((req: AxiosRequestConfig<any>) => {
-    if (storage.get('accessToken')) {
-      req.headers!.accessToken = storage.get('accessToken')
-    } else {
-      checkRedirect()
-      return Promise.reject('未登录')
-    }
+    // if (storage.get('accessToken')) {
+    //   req.headers!.accessToken = storage.get('accessToken')
+    // } else {
+    //   checkRedirect()
+    //   return Promise.reject('未登录')
+    // }
     return req
   },
   error => {
