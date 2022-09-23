@@ -20,6 +20,7 @@ const DemeanorInfo = () => {
   }, [id])
   const handlePlay = useCallback((data: any) => {
     const {videoUrl} = data
+    if (data.type !== 2) return
     const video: any = document.getElementById('waterfall_video')
     video.src = videoUrl
     setVisible(true)
