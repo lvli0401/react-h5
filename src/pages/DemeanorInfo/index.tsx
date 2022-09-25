@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './index.module.scss'
 import { useLocation } from 'react-router-dom'
 import request from '@/apis/request'
-import {InfiniteScroll} from 'antd-mobile'
+import {InfiniteScroll, ImageViewer} from 'antd-mobile'
 import playButton from '@images/play_button.webp'
 import closeIcon from '@images/img_关闭@2x.png'
 
@@ -26,6 +26,7 @@ const DemeanorInfo = () => {
   const [visible,setVisible] = useState(false)
   const [hasMore, setHasMore] = useState(true)
   const [pageNum, setPageNum] = useState(1)
+  const [viewImage, setViewImage] = useState('')
 
   const loadMore = useCallback(async () => {
     const res = await request('post', '/nan_qiao/content/query', {pageNum, pageSize: 10, parentId: id, type: 'ACTIVITY_SHOW'})
@@ -57,12 +58,21 @@ const DemeanorInfo = () => {
   }, [pageNum, source, id, leftHeight, rightHeight, leftPart, rightPart])
 
   const handlePlay = useCallback((data: any) => {
-    const {videoUrl} = data
-    if (data.type !== 2) return
+    const {videoUrl, src} = data
+    // if (data.type === 1) return setViewImage(src)
     const video: any = document.getElementById('waterfall_video')
-    video.src = videoUrl
+    const img: any = document.getElementById('waterfall_img')
+    if (data.type === 1) {
+      video.style.display = 'none'
+      img.style.display = 'block'
+      img.src = src
+    } else  {
+      img.style.display = 'none'
+      video.style.display = 'block'
+      video.src = videoUrl
+      video?.play()
+    }
     setVisible(true)
-    video?.play()
   }, [])
 
   const stopVideo = useCallback(() => {
@@ -99,7 +109,8 @@ const DemeanorInfo = () => {
           <video id='waterfall_video' className={styles.video} controls
             onEnded={stopVideo}
           />
-          <img onClick={stopVideo} src={closeIcon} />
+          <img className={styles.viewImg} id='waterfall_img' />
+          <img className={styles.close} onClick={stopVideo} src={closeIcon} />
         </div>
       </div>
     </div>
