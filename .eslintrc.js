@@ -54,6 +54,6 @@ module.exports = {
     // 尽量使用单引号
     'quotes': ['warn', 'single'],
     // 行尾不加分号
-    'semi': [1, 'never']
+    'semi': [1, 'never'],
   },
 }

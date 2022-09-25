@@ -13,7 +13,7 @@ export interface SignupActivityProps {
     /**
      * 活动内容路径，调用文件上传接口返回的路径
      */
-    contentPath: string;
+    content: string;
     /**
      * 创建人
      */
@@ -21,7 +21,7 @@ export interface SignupActivityProps {
     /**
      * 活动介绍内容存储路径，调用文件上传接口返回的路径
      */
-    descPath?: string;
+    desc?: string;
     /**
      * 图片存储路径，调用文件上传接口返回的路径
      */
@@ -29,11 +29,15 @@ export interface SignupActivityProps {
     /**
      * 人数限制
      */
-    numberLimit?: number;
+    numberLimit?: string;
     /**
      * 活动开始时间，毫秒时间戳
      */
     startTime: Date;
+    /**
+     * 活动开始时间，毫秒时间戳
+     */
+     endTime: Date;
     /**
      * 活动标题
      */

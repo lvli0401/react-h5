@@ -15,7 +15,8 @@
 %common-form-label {
   & > span {
     font-size: 14px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: PingFangSC-Regular,
+      PingFang SC;
     font-weight: 400;
     color: #333333;
     line-height: 20px;
@@ -31,7 +32,7 @@
   overflow-x: hidden;
   .form {
     width: 343px;
-    max-height: 620px;
+    max-height: 660px;
     background: #ffffff;
     border-radius: 6px;
     overflow-y: auto;
@@ -43,14 +44,16 @@
       & > span {
         &:nth-child(1) {
           font-size: 14px;
-          font-family: PingFangSC-Medium, PingFang SC;
+          font-family: PingFangSC-Medium,
+            PingFang SC;
           font-weight: 500;
           color: #333333;
           line-height: 20px;
         }
         &:nth-child(2) {
           font-size: 12px;
-          font-family: PingFangSC-Regular, PingFang SC;
+          font-family: PingFangSC-Regular,
+            PingFang SC;
           font-weight: 400;
           color: #ff6118;
           line-height: 17px;
@@ -69,7 +72,8 @@
 
       .time {
         font-size: 14px;
-        font-family: PingFangSC-Regular, PingFang SC;
+        font-family: PingFangSC-Regular,
+          PingFang SC;
         font-weight: 400;
         color: rgba(153, 153, 153, 0.6);
         line-height: 20px;
@@ -88,17 +92,11 @@
     }
 
     .banner {
-      margin-top: 15px;
+      margin-top: 10px;
       @extend %common-form-label;
-
-      &Upload {
-        margin-top: 10px;
-        --cell-size: 90px;
-        :global {
-          .adm-space {
-            --gap-horizontal: 10px;
-          }
-        }
+      & > span {
+        margin-bottom: 10px;
+        display: block;
       }
     }
   }
@@ -108,7 +106,8 @@
     background: #ff6118;
     border-radius: 27px;
     font-size: 18px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium,
+      PingFang SC;
     font-weight: 500;
     color: #ffffff;
     line-height: 50px;
@@ -123,7 +122,8 @@
   background: #ff6118;
   border-radius: 20px;
   font-size: 18px;
-  font-family: PingFangSC-Medium, PingFang SC;
+  font-family: PingFangSC-Medium,
+    PingFang SC;
   font-weight: 500;
   color: #ffffff;
   line-height: 40px;

@@ -1,112 +1,219 @@
 import React, { useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
+import styles from './index.module.scss'
 
 function LineBarChart() {
-  const chartRef = useRef<any>(null)
+  const chartNameRef = useRef<any>(null)
+  const chartGenderRef = useRef<any>(null)
+  const chartTypeRef = useRef<any>(null)
+
 
   useEffect(() => {
-    const chartInstance = echarts.init(chartRef.current)
-    const option = {
-      legend: {
-        data: [
-          '3-11岁任务数',
-          '3-11岁全程接种量',
-          '60岁任务数',
-          '60岁全程接种量',
-          '80岁任务数',
-          '80岁全程接种量',
-          '完成率',
-        ],
-      },
-      xAxis: {
-        type: 'category',
-        data: ['街道1', '街道2', '街道3', '街道4', '街道5', '街道6', '街道7'],
-      },
-      yAxis: [
-        { type: 'value' },
-        {
-          type: 'value',
-          name: '%',
-          nameTextStyle: {
-            color: '#ccc',
-            padding: [0, 0, 10, -30],
-          },
-          splitNumber: 5,
-          splitLine: {
-            show: true,
-            lineStyle: {
-              type: 'dashed',
-              width: 1,
-              color: ['#ccc', '#ccc'],
-            },
-          },
-          axisLabel: {
-            show: true,
-            textStyle: {
-              fontSize: 12,
-            },
-          },
-        },
-      ],
+    const chartNameInstance = echarts.init(chartNameRef.current)
+    const optionName = {
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          type: 'shadow',
-        },
-        textStyle: {
-          color: '#fff',
-          align: 'left',
-          fontSize: 14,
-        },
-        backgroundColor: 'rgba(0,0,0,0.8)',
+          type: 'shadow'
+        }
       },
+      legend: {
+        data: ['Forest', 'Steppe', 'Desert', 'Wetland']
+      },
+      xAxis: [
+        {
+          type: 'category',
+          axisTick: { show: false },
+          data: ['2012', '2013', '2014', '2015', '2016']
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
       series: [
         {
-          name: '3-11岁任务数',
-          data: [150, 230, 224, 218, 135, 147, 260],
+          name: 'Forest',
           type: 'bar',
+          barGap: 0,
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [320, 332, 301, 334, 390]
         },
         {
-          name: '3-11岁全程接种量',
-          data: [150, 230, 224, 218, 135, 147, 260],
+          name: 'Steppe',
           type: 'bar',
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [220, 182, 191, 234, 290]
         },
         {
-          name: '60岁任务数',
-          data: [150, 230, 224, 218, 135, 147, 260],
+          name: 'Desert',
           type: 'bar',
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [150, 232, 201, 154, 190]
         },
         {
-          name: '60岁全程接种量',
-          data: [880, 30, 124, 118, 35, 47, 160],
+          name: 'Wetland',
           type: 'bar',
-        },
-        {
-          name: '80岁任务数',
-          data: [660, 30, 124, 118, 35, 47, 160],
-          type: 'bar',
-        },
-        {
-          name: '80岁全程接种量',
-          data: [880, 30, 124, 118, 35, 47, 160],
-          type: 'bar',
-        },
-        {
-          name: '完成率',
-          data: [50, 130, 124, 18, 35, 47, 160],
-          yAxisIndex: 1,
-          type: 'line',
-          smooth: true,
-        },
-      ],
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [98, 77, 101, 99, 40]
+        }
+      ]
     }
-    chartInstance.setOption(option)
+    chartNameInstance.setOption(optionName)
+    const chartGenderInstance = echarts.init(chartGenderRef.current)
+    const optionGender = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      legend: {
+        data: ['Forest', 'Steppe', 'Desert', 'Wetland']
+      },
+      xAxis: [
+        {
+          type: 'category',
+          axisTick: { show: false },
+          data: ['2012', '2013', '2014', '2015', '2016']
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: 'Forest',
+          type: 'bar',
+          barGap: 0,
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [320, 332, 301, 334, 390]
+        },
+        {
+          name: 'Steppe',
+          type: 'bar',
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [220, 182, 191, 234, 290]
+        },
+        {
+          name: 'Desert',
+          type: 'bar',
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [150, 232, 201, 154, 190]
+        },
+        {
+          name: 'Wetland',
+          type: 'bar',
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [98, 77, 101, 99, 40]
+        }
+      ]
+    }
+    chartGenderInstance.setOption(optionGender)
+    const chartTypeInstance = echarts.init(chartTypeRef.current)
+    const optionType = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      legend: {
+        data: ['Forest', 'Steppe', 'Desert', 'Wetland']
+      },
+      xAxis: [
+        {
+          type: 'category',
+          axisTick: { show: false },
+          data: ['2012', '2013', '2014', '2015', '2016']
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: 'Forest',
+          type: 'bar',
+          barGap: 0,
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [320, 332, 301, 334, 390]
+        },
+        {
+          name: 'Steppe',
+          type: 'bar',
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [220, 182, 191, 234, 290]
+        },
+        {
+          name: 'Desert',
+          type: 'bar',
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [150, 232, 201, 154, 190]
+        },
+        {
+          name: 'Wetland',
+          type: 'bar',
+          // label: labelOption,
+          emphasis: {
+            focus: 'series'
+          },
+          data: [98, 77, 101, 99, 40]
+        }
+      ]
+    }
+    chartTypeInstance.setOption(optionType)
   }, [])
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h2>React Echarts 折线+柱状图</h2>
-      <div ref={chartRef} style={{ height: '400px' }}></div>
+    <div className={styles.chart} style={{ textAlign: 'center' }}>
+      <div className={styles.genderWrapper}>
+        <div ref={chartNameRef} className={styles.gender}></div>
+      </div>
+      <div className={styles.genderWrapper}>
+        <div ref={chartGenderRef} className={styles.gender}></div>
+      </div>
+      <div className={styles.genderWrapper}>
+        <div ref={chartTypeRef} className={styles.gender}></div>
+      </div>
     </div>
   )
 }
