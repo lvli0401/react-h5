@@ -3,7 +3,6 @@ import {QRCodeCanvas} from 'qrcode.react'
 import styles from './index.module.scss'
 import qrcodeIcon from '@images/img-风采展示@2x.png'
 import downloadIcon from '@images/img_长按@2x.png'
-import { useLocation } from 'react-router-dom'
 
 const QRCodePage = ({activityId}: {activityId: string}) => {
   const [imgSrc, setImgSrc] = useState('')
