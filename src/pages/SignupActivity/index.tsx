@@ -1,4 +1,4 @@
-import { Button, Calendar, Input, Popup, TextArea, DatePicker } from 'antd-mobile'
+import { Button, Calendar, Input, Popup, TextArea, DatePicker, Toast } from 'antd-mobile'
 import React, { useCallback, useState } from 'react'
 import styles from './index.module.scss'
 import { ImageUploadItem } from 'antd-mobile/es/components/image-uploader'
@@ -13,12 +13,30 @@ const SignupActivity = () => {
   const [visibleStart, setVisibleStart] = useState(false)
   const [visibleEnd, setVisibleEnd] = useState(false)
   const [success, setSuccess] = useState(false)
-  
+  const [activityId, setActivityId] = useState('')
+
   const generateQrCode = useCallback(
     async () => {
       const {address, content, startTime, title, endTime} = data
-      console.log(data)
-      // const res = await request('post', '/nan_qiao/activity/info/create')
+      if (!title) return Toast.show('请填入活动标题')
+      if (!content) return Toast.show('请填入活动内容')
+      if (!address) return Toast.show('请填入活动地点')
+      if (!startTime) return Toast.show('请填入活动开始时间')
+      if (!endTime) return Toast.show('请填入活动结束时间')
+      if (startTime.valueOf() > endTime.valueOf()) return Toast.show('开始时间不能晚于结束时间')
+      const res = await request('post', '/nan_qiao/activity/info/create', {
+        ...data,
+        ...{
+          startTime: data.startTime.valueOf(),
+          endTime: data.endTime.valueOf(),
+          imagePath: data.imagePath,
+          numberLimit: data.numberLimit ? data.numberLimit : null
+        }
+      })
+      if (res.success) {
+        setActivityId(activityId)
+        setSuccess(true)
+      }
     },
     [data],
   )
@@ -26,18 +44,18 @@ const SignupActivity = () => {
   const changeData = useCallback((target: object) => {
     setData({...data, ...target})
   }, [data])
-  if (success) {
-    return <QRCodePage />
+  if (success && activityId) {
+    return <QRCodePage activityId={activityId} />
   }
   return (
     <div className={styles.signup}>
       <div className={styles.form}>
         <div className={styles.title}>
           <span>活动信息</span>
-          <span>（必填）</span>
+          <span>（*代表必填）</span>
         </div>
         <div className={styles.input}>
-          <span>活动标题</span>
+          <span className={styles.required}>活动标题</span>
           <Input value={data.title} onChange={val => changeData({title: val})} className={styles.inputItem} placeholder='请填写' />
         </div>
         <div className={styles.textarea}>
@@ -45,23 +63,23 @@ const SignupActivity = () => {
           <TextArea value={data.desc} onChange={val => changeData({desc: val})} className={styles.textareaItem} placeholder='请填写' />
         </div>
         <div className={styles.textarea}>
-          <span>活动内容</span>
+          <span className={styles.required}>活动内容</span>
           <TextArea value={data.content} onChange={val => changeData({content: val})} className={styles.textareaItem} placeholder='请填写' />
         </div>
         <div className={styles.input}>
           <span>活动人数</span>
-          <Input value={data.numberLimit} onChange={val => changeData({numberLimit: val})} className={styles.inputItem} placeholder='请填写（最多xx人）' />
+          <Input type='number' value={data.numberLimit} onChange={val => changeData({numberLimit: val})} className={styles.inputItem} placeholder='请填写（最多xx人）' />
         </div>
         <div className={styles.textarea}>
-          <span>活动地点</span>
+          <span className={styles.required}>活动地点</span>
           <TextArea value={data.address} onChange={val => changeData({address: val})} className={styles.textareaItem} placeholder='请填写' />
         </div>
         <div className={styles.input}>
-          <span>活动开始时间</span>
+          <span className={styles.required}>活动开始时间</span>
           <div onClick={() => setVisibleStart(true)} style={data.startTime ? {color: '#333333'} : {}} className={styles.time}>{data.startTime ? dayjs(data.startTime).format('YYYY-MM-DD HH:mm:ss') : '请选择时间'}</div>
         </div>
         <div className={styles.input}>
-          <span>活动结束时间</span>
+          <span className={styles.required}>活动结束时间</span>
           <div onClick={() => setVisibleEnd(true)} style={data.endTime ? {color: '#333333'} : {}} className={styles.time}>{data.endTime ? dayjs(data.endTime).format('YYYY-MM-DD HH:mm:ss') : '请选择时间'}</div>
         </div>
         <div className={styles.textarea}>

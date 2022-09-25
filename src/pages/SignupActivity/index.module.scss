@@ -140,3 +140,17 @@
   --item-font-size: 12px;
   --item-height: 30px;
 }
+
+.required {
+  position: relative;
+  display: block;
+  height: 20px;
+  &::before {
+    content: "*";
+    color: #ff6118;
+    position: absolute;
+    left: -11px;
+    top: 50%;
+    transform: translateY(-40%);
+  }
+}

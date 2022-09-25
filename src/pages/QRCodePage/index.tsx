@@ -3,8 +3,9 @@ import {QRCodeCanvas} from 'qrcode.react'
 import styles from './index.module.scss'
 import qrcodeIcon from '@images/img-风采展示@2x.png'
 import downloadIcon from '@images/img_长按@2x.png'
+import { useLocation } from 'react-router-dom'
 
-const QRCodePage = () => {
+const QRCodePage = ({activityId}: {activityId: string}) => {
   const [imgSrc, setImgSrc] = useState('')
   const handleQr = useCallback(() => {
     const canvasImg: any = document.getElementById('qrCode') // 获取canvas类型的二维码
@@ -28,7 +29,7 @@ const QRCodePage = () => {
         <div style={{display: 'none'}}>
           <QRCodeCanvas
             id="qrCode"
-            value="https://www.jianshu.com/u/992656e8a8a6"
+            value={`${window.location.host}/data?activity_id=${activityId}`}
             size={100} // 二维码的大小
             fgColor="#000000" // 二维码的颜色
             style={{ margin: 'auto' }}
