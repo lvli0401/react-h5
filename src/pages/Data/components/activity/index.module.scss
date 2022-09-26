@@ -1,0 +1,21 @@
+.chart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .genderWrapper {
+    width: 343px;
+    height: 270px;
+    background: #ffffff;
+    border-radius: 8px;
+    margin-top: 10px;
+
+    .gender {
+      width: 320px;
+      height: 250px;
+      overflow: hidden;
+      margin: 10px auto;
+    }
+  }
+}

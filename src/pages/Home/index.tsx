@@ -1,59 +1,80 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import Layout from '@components/Layout'
 import { Link } from 'react-router-dom'
-import { Button } from 'antd-mobile'
+import { Button, InfiniteScroll } from 'antd-mobile'
 import VenueCard from './components/venue-card'
+import request from '@/apis/request'
+import bookRecordIcon from '@images/img-预约记录@2x.png'
+import venueIcon from '@images/img-场馆预约@2x.png'
+import demeanorIcon from '@images/img-风采展示@2x.png'
+
 const entryList = [
   {
-    icon: '',
+    icon: bookRecordIcon,
     text: '预约记录',
   },
   {
-    icon: '',
+    icon: venueIcon,
     text: '场馆预约',
   },
   {
-    icon: '',
+    icon: demeanorIcon,
     text: '风采展示',
   },
-  {
-    icon: '',
-    text: '公告信息',
-  }
+  // {
+  //   icon: '',
+  //   text: '公告信息',
+  // }
 ]
-const venueList = [
-  {
-    imgurl: '',
-    title: '羽毛球',
-    link: ''
-  },
-  {
-    imgurl: '',
-    title: '篮球',
-    link: ''
-  },
-  {
-    imgurl: '',
-    title: '足球',
-    link: ''
-  }
-]
+
 const Home: React.FC<Record<string, never>> = () => {
+  const [banner, setBanner] = useState()
+  const [hasMore, setHasMore] = useState(false)
+  const [demeanorList, setDemeanorList] = useState<any[]>([])
+  const [pageNum, setPageNum] = useState(1)
+  const getData = useCallback(async() => {
+    const [{result: res1}, {result: res2}]  = await Promise.all([
+      request('post', '/nan_qiao/content/query', {pageNum: 1, pageSize: 10, type: 'BANNER'}),
+      request('post', '/nan_qiao/content/query', {pageNum: 1, pageSize: 10, type: 'ACTIVITY_SHOW'}),
+    ])
+    res1.list.length > 0 && setBanner(res1.list[0].filePath)
+    res2.list.length > 0 && setDemeanorList(res2.list.map(({filePath = '', name = '', id = ''}) => ({
+      imgurl: filePath,
+      title: name,
+      id
+    })))
+    setPageNum(2)
+    if (res2.list.length > 0) setHasMore(true)
+  }, [])
+  const loadMore = useCallback(async () => {
+    const {result: res} = await request('post', '/nan_qiao/content/query', {pageNum, pageSize: 10, type: 'ACTIVITY_SHOW'})
+    if (res && res.list) setDemeanorList([...demeanorList, ...res.list.map(({filePath = '', name = '', id = ''}) => ({
+      imgurl: filePath,
+      title: name,
+      id
+    }))])
+    setPageNum(pageNum + 1)
+    setHasMore(res.list.length > 0)
+  }, [pageNum, demeanorList])
+  useEffect(() => {
+    getData()
+  }, [])
   return (
     <Layout>
       <div className={styles.home}>
-        <img alt='' src='' className={styles.banner} />
+        <img src={banner} className={styles.banner} />
         <div className={styles.entry}>
-          {entryList.map((v) => (
-            <div key={v.text}>
+          {entryList.map((v, index) => (
+            <div key={index}>
               <img src={v.icon} />
               <div>{v.text}</div>
             </div>
           ))}
         </div>
         <div className={styles.venueTitle}>活动风采</div>
-        {venueList.map(v => <VenueCard key={v.title} data={v} />)}
+        {demeanorList.map((v, index) => <VenueCard key={index} data={v} />)}
+        <InfiniteScroll loadMore={loadMore} hasMore={hasMore}>加载中...</InfiniteScroll>
       </div>
     </Layout>
   )

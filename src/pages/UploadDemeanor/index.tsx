@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styles from './index.module.scss'
-import {Button, Input, Picker, Radio} from 'antd-mobile'
+import {Button, Input, Picker, Radio, Toast} from 'antd-mobile'
 import MediaUpload, {fileType} from '@/components/MediaUpload'
 import request from '@/apis/request'
 import successIcom from '@/assets/images/img_上传成功@2x.png'
@@ -31,8 +31,11 @@ const UploadActivity = () => {
   )
   const handleSubmit = useCallback(
     async () => {
+      if (!name.label) return Toast.show('请输入风采标题')
+      if (nameType === '1'&& !coverList.length) return Toast.show('请选择封面图片')
+      if (!fileList.length) return Toast.show('请上传风采内容')
       const res = await request('post', '/nan_qiao/content/submit', {
-        cover: coverList[0].url,
+        cover: coverList[0]?.url,
         files: fileList.map(v => ({
           filePath: v.url,
           fileType: 'image' === v.type ? 'IMG' : 'VIDEO'
@@ -41,9 +44,10 @@ const UploadActivity = () => {
         parentId: name.value,
         type: 'ACTIVITY_SHOW'
       })
-      setSuccess(true)
+      if (res.result) return setSuccess(true)
+      return Toast.show('上传失败')
     },
-    [name, coverList, fileList],
+    [name, coverList, fileList, nameType],
   )
 
   const getNameColumns = useCallback(async() => {
@@ -76,14 +80,16 @@ const UploadActivity = () => {
           </Radio.Group>
           {nameType === '1' ? <Input value={name.label} onChange={val => setName({label: val, value: null})} className={styles.titleInput} placeholder='请输入标题' /> : 
             <>
-              <Button
+              <div className={styles.titleExist}><Button
                 onClick={() => {
                   setVisible(true)
                 }}
+                className={styles.chooseExist}
               >
                 选择已有标题
               </Button>
-              <span>{name.label}</span>
+              <span>{name.label}</span></div>
+              
               <Picker
                 columns={[nameColumns]}
                 visible={visible}
@@ -101,7 +107,7 @@ const UploadActivity = () => {
         <div className={styles.content}>
           <div>
             <span>封面图片</span>
-            <span>（必填）</span>
+            {nameType === '1' && <span>（必填）</span>}
           </div>
           <MediaUpload accept={/^image\//} text="添加图片" onUpload={handleImgUpload} fileList={coverList} />
         </div>

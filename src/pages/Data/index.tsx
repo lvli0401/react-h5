@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import Layout from '@/components/Layout';
-import styles from "./index.module.scss";
-import { LeftOutline } from "antd-mobile-icons";
-import { useNavigate } from 'react-router-dom';
-import classnames from 'classnames';
-import VenueReport from './components/venuesReport';
-
+import React, { useState } from 'react'
+import Layout from '@/components/Layout'
+import styles from './index.module.scss'
+import { LeftOutline } from 'antd-mobile-icons'
+import { useNavigate } from 'react-router-dom'
+import classnames from 'classnames'
+import VenueReport from './components/venuesReport'
+import ActivityReport from './components/activity'
 
 const tabs = [
   {
@@ -16,18 +16,18 @@ const tabs = [
     id: 2,
     name: '活动数据报表',
   },
-];
+]
 
 
 const DataCenter: React.FC<Record<string, never>> = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const goBack = () => {
-    navigate(-1);
+    navigate(-1)
   }
 
-  const [curId, setCurId] = useState(1);
+  const [curId, setCurId] = useState(1)
   const changeTabs = (id: number) => {
-    setCurId(id);
+    setCurId(id)
   }
 
   return (
@@ -55,11 +55,11 @@ const DataCenter: React.FC<Record<string, never>> = () => {
         {
           curId === 1 ? (
             <VenueReport />
-          ) : null
+          ) : <ActivityReport />
         }
       </div>
     </Layout>
   )
 }
 
-export default DataCenter;
+export default DataCenter

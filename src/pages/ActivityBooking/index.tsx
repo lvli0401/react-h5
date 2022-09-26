@@ -24,10 +24,10 @@ const auditComponent = (props: any) => {
 const Record: React.FC<any> = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <LeftOutline fontSize={16} />
         <span className={styles.title}>活动预约审核列表</span>
-      </div>
+      </div> */}
       <div className={styles.card}>
         <div className={styles.cardItem}>
           <span className={styles.itemLabel}>活动名称</span>

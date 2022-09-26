@@ -1,5 +1,88 @@
-.container {
-  height: 500px;
-  width: 100%;
-  border: 1px solid red;
+.info {
+  position: relative;
+  .title {
+    margin: 20px 16px;
+    font-size: 20px;
+    font-family: PingFangSC-Medium,
+      PingFang SC;
+    font-weight: 500;
+    color: #222222;
+    line-height: 28px;
+  }
+  .container {
+    height: 597px;
+    width: 343px;
+    margin: 0 16px;
+    // height: 100%;
+  }
+  .videoWrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(
+      $color: #000000,
+      $alpha: 0.5
+    );
+    & > div {
+      position: relative;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      .video {
+        width: 100%;
+        height: auto;
+      }
+      .viewImg {
+        width: 100%;
+        height: auto;
+      }
+
+      .close {
+        position: absolute;
+        right: 10px;
+        top: -40px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  .waterfall {
+    width: 100%;
+    display: flex;
+    padding: 0 16px;
+
+    .left,
+    .right {
+      width: 166px;
+
+      & > div {
+        width: 100%;
+        position: relative;
+        & > img:nth-child(1) {
+          width: 100%;
+        }
+
+        & > img:nth-child(2) {
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          left: 50%;
+          top: 50%;
+          transform: translate(
+            -50%,
+            -50%
+          );
+          // z-index: 9;
+        }
+      }
+    }
+
+    .left {
+      margin-right: 11px;
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy } from 'react'
 export interface RouteItem {
   path: string; //路径,当路由为index路由时path为父级的path
   component?: any; //懒加载组件
@@ -8,52 +8,56 @@ export interface RouteItem {
 }
 const routes: Array<RouteItem> = [
   {
-    path: "/",
-    redirect: "home",
+    path: '/',
+    redirect: 'home',
   },
   {
-    path: "home",
-    component: lazy(() => import("@pages/Home")),
+    path: 'home',
+    component: lazy(() => import('@pages/Home')),
   },
   {
-    path: "data",
-    component: lazy(() => import("@pages/Data")),
+    path: 'data',
+    component: lazy(() => import('@pages/Data')),
   },
   {
-    path: "user",
-    component: lazy(() => import("@/pages/UserCenter")),
+    path: 'user',
+    component: lazy(() => import('@/pages/UserCenter')),
   },
   {
-    path: "venuesInfo",
-    component: lazy(() => import("@/pages/VenuesInfo")),
+    path: 'venuesInfo',
+    component: lazy(() => import('@/pages/VenuesInfo')),
   },
   {
-    path: "record",
-    component: lazy(() => import("@/pages/Record")),
+    path: 'record',
+    component: lazy(() => import('@/pages/Record')),
   },
   {
-    path: "venueBooking",
-    component: lazy(() => import("@/pages/VenueBooking")),
+    path: 'venueBooking',
+    component: lazy(() => import('@/pages/VenueBooking')),
   },
   {
-    path: "message",
-    component: lazy(() => import("@/pages/Messages")),
+    path: 'activity-booking',
+    component: lazy(() => import('@/pages/ActivityBooking')),
   },
   {
-    path: "upload-demeanor",
-    component: lazy(() => import("@/pages/UploadDemeanor")),
+    path: 'sign-activity',
+    component: lazy(() => import('@/pages/SignActivity')),
   },
   {
-    path: "signup-activity",
-    component: lazy(() => import("@/pages/SignupActivity")),
+    path: 'upload-demeanor',
+    component: lazy(() => import('@/pages/UploadDemeanor')),
   },
   {
-    path: "demeanor-info",
-    component: lazy(() => import("@/pages/DemeanorInfo")),
+    path: 'generate-activity',
+    component: lazy(() => import('@/pages/GenerateActivity')),
   },
   {
-    path: "*",
-    component: lazy(() => import("@pages/Error/404")),
+    path: 'demeanor-info',
+    component: lazy(() => import('@/pages/DemeanorInfo')),
   },
-];
-export default routes;
+  {
+    path: '*',
+    component: lazy(() => import('@pages/Error/404')),
+  },
+]
+export default routes

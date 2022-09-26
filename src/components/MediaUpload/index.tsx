@@ -13,9 +13,10 @@ export interface fileType {
 const videoType = /^video\//
 const imageType = /^image\//
 
-const VideoUpload = ({onUpload, fileList, maxCount = 1, multiple = false, accept, text}: {onUpload: (files: fileType[]) => void,
+const MediaUpload = ({onUpload, fileList, maxCount = 1, multiple = false, accept, text}: {onUpload: (files: fileType[]) => void,
   fileList: Array<fileType>, maxCount?: number, multiple?: boolean, accept?: RegExp, text?: string}) => {
   const refInput = useRef<any>()
+  const [loading, setLoading] = useState(false)
   const handleChange = useCallback(
     async (e: any) => {
       const files = e.target.files
@@ -31,19 +32,26 @@ const VideoUpload = ({onUpload, fileList, maxCount = 1, multiple = false, accept
         }
       }))
       if (!flag) return
-      const newFileList: any[] = await Promise.all(Array.prototype.map.call(files, async (v: any) => {
-        const form = new FormData()
-        form.append('file', v)
-        const res = await request('post', '/nan_qiao/file/upload', form, {headers: {
-          'content-type': 'multipart/form-data',
-        },})
-        return {
-          type: videoType.test(v.type) ? 'video' : 'image',
-          url: res.result
-        }
-      }))
-      onUpload([...fileList, ...newFileList])
-      e.target.value = null
+      setLoading(true)
+      try {
+        const newFileList: any[] = await Promise.all(Array.prototype.map.call(files, async (v: any) => {
+          const form = new FormData()
+          form.append('file', v)
+          const res = await request('post', '/nan_qiao/file/upload', form, {headers: {
+            'content-type': 'multipart/form-data',
+          },})
+          return {
+            type: videoType.test(v.type) ? 'video' : 'image',
+            url: res.result
+          }
+        }))
+        onUpload([...fileList, ...newFileList])
+        e.target.value = null
+      } catch(e) {
+        Toast.show('上传失败')
+      } finally{
+        setLoading(false)
+      }
     },
     [fileList, onUpload],
   )
@@ -58,7 +66,7 @@ const VideoUpload = ({onUpload, fileList, maxCount = 1, multiple = false, accept
         {fileList.map((v, index) => {
           const url = 'image' === v.type ? v.url : `${v.url}?x-oss-process=video/snapshot,t_5000,f_jpg,m_fast`
           return (
-            <div className={styles.imgItem} key={v.url}
+            <div className={styles.imgItem} key={index}
               style={{
                 backgroundImage: `url(${url})`
               }}
@@ -75,9 +83,15 @@ const VideoUpload = ({onUpload, fileList, maxCount = 1, multiple = false, accept
           <div>{text ? text : '添加图片/视频'}</div>
         </div>}
       </div>
+      <div style={loading ? {} : {display: 'none'}} className={styles.loading}>
+        <div className={styles.loadingItem}>
+          {Array(12).fill('').map((_, index) => (<div key={index} />))}
+        </div>
+        <p>上传中...</p>
+      </div>
       <input ref={refInput} className={styles.input} type='file' onChange={handleChange} multiple={!!multiple} />
     </div>
   )
 }
 
-export default VideoUpload
+export default MediaUpload
