@@ -32,7 +32,7 @@ const request = (method: 'get' | 'post', url: string, params?: any, config?: Axi
   )
 
   instance.interceptors.response.use(
-    response => {
+    response => {      
       if (response.status === 200 && response.data.success) {
         return response.data
       } else {

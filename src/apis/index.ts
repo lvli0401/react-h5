@@ -22,12 +22,42 @@ export const testRequest = (
 interface bookingRecordProps {
   openId?: string;
 }
+// 预约记录列表
 export const bookingRecord = (
   params: bookingRecordProps = {}
-): AxiosPromise<ResponseData<UserInfo>> =>
+): any =>
   request("post", "/nan_qiao/user_info/user_book_record", params);
+// 场馆审核记录列表查询
+export const venuesAuditList = (
+  params: any = {}
+): any =>
+  request("post", "/nan_qiao/stadiumInfo/listAllOrderRecord", params);
+
+// 场馆审核
+export const doAuditVenue = (
+  params: any = {}
+): any =>
+  request("post", "/nan_qiao/stadium/order/aduit", params);
 
 export const stadiumInfoListAll = (
   params: TestProps = {}
 ): AxiosPromise<ResponseData<UserInfo>> =>
   request("post", "/nan_qiao/stadiumInfo/listAll", params);
+interface tokenProps {
+  code?: string;
+}
+interface tokenRes {
+  accessToken?: "";
+  userInfoDTO?: userINfoSubProps;
+}
+interface userINfoSubProps {
+  id: number;
+  headPic: string;
+  wechatName: string;
+  userType: number;
+}
+export const getTokenByCode = (
+  params: tokenProps = {}
+): AxiosPromise<ResponseData<tokenRes>> =>
+  request("get", "/nan_qiao/wechat/code_for_token", params);
+

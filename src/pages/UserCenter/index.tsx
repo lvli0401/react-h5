@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LeftOutline, RightOutline } from "antd-mobile-icons";
+import { LeftOutline } from "antd-mobile-icons";
 import Layout from "@components/Layout";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
@@ -61,7 +61,7 @@ const Record: React.FC<any> = (props: any) => {
   useEffect(() => {
     const { userType, headPic, wechatName } = storage.get('userInfo');
     const isManagement = userType === 1;
-    setBarList(isManagement ? managementList : commonlist);
+    setBarList(!isManagement ? managementList : commonlist);
     setAvatar(headPic || DefAvatar);
     setUserName(wechatName);
   }, [])

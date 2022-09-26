@@ -1,4 +1,6 @@
 import storage from "./storage";
+import { getTokenByCode } from '@/apis/index';
+
 const config = {
   appid: 'wx858f95d036ff8738', // 测试公众号
   // appid: 'wxe5be0ea7c9f3ab15', // 南桥公众号id
@@ -54,7 +56,9 @@ const checkRedirect = async () => {
     window.location.replace(generateOAuthUrl(config));
   }
   const code = getQueryString('code');
-  // const res = await getTokenByCode();
+  const res = await getTokenByCode({ code: code || '' });
+  console.log(res, 'res');
+  
   // return res;
 
   const result = {

@@ -1,4 +1,5 @@
-import React, { RefObject, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { LeftOutline } from "antd-mobile-icons";
 import styles from "./index.module.scss";
 import { bookingRecord } from '@/apis/index';
@@ -22,27 +23,20 @@ interface bookingRecordsProps {
 const Record: React.FC<any> = () => {
   const [list, setList] = useState<bookingRecordsProps[]>([]);
   const getRecordList = async () => {
-    await bookingRecord({
-      openId: '1'
-    });
-    // const {result} = await bookingRecord();
-    const result = {
-      bookingRecords: [{
-        id: 1,
-        bookInfo: "活动名/ 场馆地址",
-        bookTime: "2022-01-01",
-        approveStatus: 0,
-        remark: "一些注意事项一些注意事项一些注意事项一些注意事项",
-      }]
-    }
-    setList(result.bookingRecords);
+    const { result } = await bookingRecord();
+    setList(result);
+  }
+
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
   }
 
   useEffect(() => { getRecordList() }, [])
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
+      <div className={styles.header} onClick={goBack}>
         <LeftOutline fontSize={16} />
         <span className={styles.title}>预约记录</span>
       </div>
