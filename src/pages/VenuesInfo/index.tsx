@@ -12,19 +12,14 @@ import {
   Image,
 } from 'antd-mobile'
 import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
-import { stadiumInfoListAll } from '@/apis/index';
+import { stadiumInfoListAll, venuesOrder } from '@/apis/index';
 import styles from './index.module.scss'
+import { useNavigate } from "react-router-dom"
 
-const basicColumns = [
-  [
-    { label: '周一', value: 'Mon' },
-    { label: '周二', value: 'Tues' },
-    { label: '周三', value: 'Wed' },
-    { label: '周四', value: 'Thur' },
-    { label: '周五', value: 'Fri' },
-  ],
-]
-
+interface timeRangeVosProps {
+  startTime: string;
+  endTime: string;
+}
 interface venuesProp {
   code: string;
   name: string;
@@ -33,58 +28,55 @@ interface venuesProp {
   seatingCapacity?: number;
   showPhoto: string;
   detailPhotos: string[];
-  timeRangeVos: object[];
+  timeRangeVos: timeRangeVosProps[];
   status: number;
 }
 
+interface colProps {
+  label: string;
+  value: string;
+}
+
 const Venues: React.FC<any> = () => {
-  // const [value, setValue] = useState<String | null>(null);
-  const [list, setList] = useState<venuesProp[]>([]);
+  const [list, setList] = useState<colProps[]>([]);
   const [curVenue, setCurVenue] = useState<venuesProp>({
     code: '',
     name: '',
     note: '',
     status: -1,
-    "detailPhotos": [],
-    "showPhoto": "",
-    "location": "",
-    "timeRangeVos": [
-      {
-        "startTime": "08:00",
-        "endTime": "20:00",
-      }
-    ]
+    detailPhotos: [],
+    showPhoto: "",
+    location: "",
+    timeRangeVos: []
   });
 
   const getVenuesList = async () => {
-    await stadiumInfoListAll();
-    const vlist: venuesProp[] = [
-      {
-        code: '3-101',
-        name: '舞蹈室',
-        note: '舞蹈室简介',
-        status: 1,
-        "detailPhotos": [
-          "http://dummyimage.com/400x400",
-          "http://dummyimage.com/400x400"
-        ],
-        "showPhoto": "http://dummyimage.com/400x400",
-        "location": "南津路三号",
-        "timeRangeVos": [
-          {
-            "endTime": "05:56",
-            "startTime": "09:45"
-          }
-        ]
-      }
-    ];
-    setList(vlist);
+    const { result: { list } } = await stadiumInfoListAll();
+    if (list && list.length > 0) {
+      setCurVenue(list[0]);
+      const rList = list.map((i: any) => ({
+        label: i.name,
+        val: i.code,
+      }));
+      setList(rList);
+      setValue([rList[0].val]);
+    }
   }
 
-  // const changeVenue = (val:) => {
-  //   console.log(val, 'val');
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
 
-  // }
+  const [value, setValue] = useState<any[]>([]);
+
+  const onConfirm = (val: any) => {
+    console.log(val, 'val');
+  }
+
+  const orderVenues = async () => {
+
+  };
 
   useEffect(() => {
     getVenuesList();
@@ -92,9 +84,11 @@ const Venues: React.FC<any> = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
+      <div className={styles.header} onClick={() => {
+        goBack();
+      }}>
         <LeftOutline fontSize={16} />
-        <span className={styles.title}>场馆预约审核列表</span>
+        <span className={styles.title}>场馆预约</span>
       </div>
       <div className={styles.info}>
         <Image
@@ -107,17 +101,22 @@ const Venues: React.FC<any> = () => {
         </div>
         <h2 className={styles.subTitle}>开放时间</h2>
         <div className={styles.infoContent}>
-          <div className={styles.infoWord}>上午 08:00 - 12:00</div>
-          <div className={styles.infoWord}>下午 14:00 - 20:00</div>
+          {
+            curVenue.timeRangeVos.map((i, index) => (
+              <div key={index} className={styles.infoWord}>
+                {i.startTime} - {i.endTime}
+              </div>
+            ))
+          }
         </div>
         <h2 className={styles.subTitle}>地址信息</h2>
         <div className={styles.infoWord}>{curVenue.location}</div>
       </div>
       <div className={styles.changeVenues}>
         <Picker
-          columns={basicColumns}
-        // value={value}
-        // onConfirm={(val) => changeVenue(val)}
+          columns={[list]}
+          value={value}
+          onConfirm={(val) => onConfirm(val)}
         >
           {(items, { open }) => {
             return (
@@ -128,9 +127,7 @@ const Venues: React.FC<any> = () => {
                 />
 
                 <div className={styles.venueName}>
-                  {items.every((item) => item === null)
-                    ? '默认场馆'
-                    : items.map((item) => item?.label)}
+                  {curVenue.name}
                 </div>
                 <div className={styles.bar} onClick={open}>
                   更换

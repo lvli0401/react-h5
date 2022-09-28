@@ -39,10 +39,27 @@ export const doAuditVenue = (
 ): any =>
   request("post", "/nan_qiao/stadium/order/aduit", params);
 
+// 场馆预约率
+export const getQueryOrder = (
+  params: any = {}
+): any =>
+  request("post", "/nan_qiao/data/stadium/queryOrder", params);
+
+// 场馆
+export const getQueryStadiumOrder = (
+  params: any = {}
+): any =>
+  request("post", "/nan_qiao/data/stadium/queryStadiumOrder", params);
+
 export const stadiumInfoListAll = (
-  params: TestProps = {}
-): AxiosPromise<ResponseData<UserInfo>> =>
+  params: any = {}
+): any =>
   request("post", "/nan_qiao/stadiumInfo/listAll", params);
+
+export const venuesOrder = (
+  params: any = {}
+): any =>
+  request("post", "/nan_qiao/stadium/schedule/order", params);
 interface tokenProps {
   code?: string;
 }

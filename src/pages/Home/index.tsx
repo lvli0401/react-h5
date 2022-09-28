@@ -8,15 +8,18 @@ import request from '@/apis/request'
 import bookRecordIcon from '@images/img-预约记录@2x.png'
 import venueIcon from '@images/img-场馆预约@2x.png'
 import demeanorIcon from '@images/img-风采展示@2x.png'
+import { useNavigate } from "react-router-dom"
 
 const entryList = [
   {
     icon: bookRecordIcon,
     text: '预约记录',
+    path: '/record'
   },
   {
     icon: venueIcon,
     text: '场馆预约',
+    path: '/venuesInfo'
   },
   {
     icon: demeanorIcon,
@@ -33,13 +36,13 @@ const Home: React.FC<Record<string, never>> = () => {
   const [hasMore, setHasMore] = useState(false)
   const [demeanorList, setDemeanorList] = useState<any[]>([])
   const [pageNum, setPageNum] = useState(1)
-  const getData = useCallback(async() => {
-    const [{result: res1}, {result: res2}]  = await Promise.all([
-      request('post', '/nan_qiao/content/query', {pageNum: 1, pageSize: 10, type: 'BANNER'}),
-      request('post', '/nan_qiao/content/query', {pageNum: 1, pageSize: 10, type: 'ACTIVITY_SHOW'}),
+  const getData = useCallback(async () => {
+    const [{ result: res1 }, { result: res2 }] = await Promise.all([
+      request('post', '/nan_qiao/content/query', { pageNum: 1, pageSize: 10, type: 'BANNER' }),
+      request('post', '/nan_qiao/content/query', { pageNum: 1, pageSize: 10, type: 'ACTIVITY_SHOW' }),
     ])
     res1.list.length > 0 && setBanner(res1.list[0].filePath)
-    res2.list.length > 0 && setDemeanorList(res2.list.map(({filePath = '', name = '', id = ''}) => ({
+    res2.list.length > 0 && setDemeanorList(res2.list.map(({ filePath = '', name = '', id = '' }) => ({
       imgurl: filePath,
       title: name,
       id
@@ -48,8 +51,8 @@ const Home: React.FC<Record<string, never>> = () => {
     if (res2.list.length > 0) setHasMore(true)
   }, [])
   const loadMore = useCallback(async () => {
-    const {result: res} = await request('post', '/nan_qiao/content/query', {pageNum, pageSize: 10, type: 'ACTIVITY_SHOW'})
-    if (res && res.list) setDemeanorList([...demeanorList, ...res.list.map(({filePath = '', name = '', id = ''}) => ({
+    const { result: res } = await request('post', '/nan_qiao/content/query', { pageNum, pageSize: 10, type: 'ACTIVITY_SHOW' })
+    if (res && res.list) setDemeanorList([...demeanorList, ...res.list.map(({ filePath = '', name = '', id = '' }) => ({
       imgurl: filePath,
       title: name,
       id
@@ -57,6 +60,12 @@ const Home: React.FC<Record<string, never>> = () => {
     setPageNum(pageNum + 1)
     setHasMore(res.list.length > 0)
   }, [pageNum, demeanorList])
+
+  const navigate = useNavigate();
+  
+  const goPage = (res: any) => {
+    navigate(res.path);
+  }
   useEffect(() => {
     getData()
   }, [])
@@ -66,7 +75,9 @@ const Home: React.FC<Record<string, never>> = () => {
         <img src={banner} className={styles.banner} />
         <div className={styles.entry}>
           {entryList.map((v, index) => (
-            <div key={index}>
+            <div key={index} onClick={() => {
+              goPage(v)
+            }}>
               <img src={v.icon} />
               <div>{v.text}</div>
             </div>

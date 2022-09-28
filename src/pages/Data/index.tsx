@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import styles from './index.module.scss'
 import { LeftOutline } from 'antd-mobile-icons'
