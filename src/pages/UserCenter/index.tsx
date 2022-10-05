@@ -31,7 +31,7 @@ const managementList: barProps[] = [
     id: 2,
     icon: Icon2,
     name: "上传风采信息",
-    path: "",
+    path: "/upload-demeanor",
   },
   {
     id: 3,
@@ -43,13 +43,13 @@ const managementList: barProps[] = [
     id: 4,
     icon: Icon4,
     name: "活动预约审核列表",
-    path: "",
+    path: "/sign-activity",
   },
   {
     id: 5,
     icon: Icon5,
     name: "活动报名二维码生成",
-    path: "",
+    path: "/generate-activity",
   },
 ]
 const Record: React.FC<any> = (props: any) => {

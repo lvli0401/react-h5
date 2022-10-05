@@ -10,6 +10,7 @@ import {
   DatePicker,
   Selector,
   Image,
+  Toast
 } from 'antd-mobile'
 import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
 import { stadiumInfoListAll, venuesOrder } from '@/apis/index';
@@ -49,17 +50,19 @@ const Venues: React.FC<any> = () => {
     location: "",
     timeRangeVos: []
   });
+  const [originList, setOriginList] = useState<venuesProp[]>([]);
 
   const getVenuesList = async () => {
     const { result: { list } } = await stadiumInfoListAll();
     if (list && list.length > 0) {
+      setOriginList(list);
       setCurVenue(list[0]);
       const rList = list.map((i: any) => ({
         label: i.name,
-        val: i.code,
+        value: i.code,
       }));
       setList(rList);
-      setValue([rList[0].val]);
+      setValue([rList[0].value]);
     }
   }
 
@@ -70,12 +73,21 @@ const Venues: React.FC<any> = () => {
 
   const [value, setValue] = useState<any[]>([]);
 
-  const onConfirm = (val: any) => {
-    console.log(val, 'val');
+  const onConfirm = (val: any[]) => {
+    setValue(val);
+    const curIndex = originList.findIndex((i: any) => i.code === val[0]);
+    setCurVenue(originList[curIndex]);
   }
 
-  const orderVenues = async () => {
-
+  const onFinish = async (values: any) => {
+    const params = {
+      ...values,
+      timeType: values.timeType[0],
+      date: dayjs(values.date).format('YYYY-MM-DD'),
+      stadiumCode: curVenue.code,
+    }
+    await venuesOrder(params);
+    Toast.show('预约成功');
   };
 
   useEffect(() => {
@@ -140,6 +152,7 @@ const Venues: React.FC<any> = () => {
       </div>
       <div className={styles.formBox}>
         <Form
+          onFinish={onFinish}
           layout="horizontal"
           footer={
             <Button block type="submit" color="primary" size="large">
@@ -149,7 +162,7 @@ const Venues: React.FC<any> = () => {
         >
           <Form.Header>预约信息</Form.Header>
           <Form.Item
-            name="name"
+            name="orderPersonName"
             label="姓名"
             rules={[{ required: true, message: '姓名不能为空' }]}
           >
@@ -157,7 +170,7 @@ const Venues: React.FC<any> = () => {
           </Form.Item>
 
           <Form.Item
-            name="phone"
+            name="orderPhone"
             label="手机号"
             rules={[{ required: true, message: '手机号不能为空' }]}
           >
@@ -172,7 +185,7 @@ const Venues: React.FC<any> = () => {
             <Input onChange={console.log} placeholder="请输入团队名" />
           </Form.Item>
           <Form.Item
-            name="address"
+            name="applyReason"
             label="排练内容"
             rules={[{ required: true, message: '排练内容不能为空' }]}
           >
@@ -184,7 +197,7 @@ const Venues: React.FC<any> = () => {
             />
           </Form.Item>
           <Form.Item
-            name="teamName"
+            name="orderPeopleCnt"
             label="预约人数"
             rules={[{ required: true, message: '预约人数不能为空' }]}
           >
@@ -205,16 +218,16 @@ const Venues: React.FC<any> = () => {
               }
             </DatePicker>
           </Form.Item>
-          <Form.Item name="favoriteFruits" label="时段选择">
+          <Form.Item name="timeType" label="时段选择">
             <Selector
               style={{
                 '--padding': '2px',
               }}
               columns={3}
               options={[
-                { label: '上午', value: 'apple' },
-                { label: '下午', value: 'orange' },
-                { label: '晚上', value: 'banana' },
+                { label: '上午', value: '0' },
+                { label: '下午', value: '1' },
+                { label: '晚上', value: '2' },
               ]}
             />
           </Form.Item>
