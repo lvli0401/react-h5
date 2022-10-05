@@ -1,19 +1,19 @@
-import React, { Suspense } from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import App from './App'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
   Navigate,
-} from "react-router-dom";
-import "lib-flexible";
-import routes, { RouteItem } from "./router";
-import Loading from "./components/Loading";
+} from 'react-router-dom'
+import 'lib-flexible'
+import routes, { RouteItem } from './router'
+import Loading from './components/Loading'
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+  document.getElementById('root') as HTMLElement
+)
 const routerMap: (routes: Array<RouteItem>) => Array<JSX.Element> = routes => {
   return routes.map(route =>
     !route.children?.length ? (
@@ -45,8 +45,8 @@ const routerMap: (routes: Array<RouteItem>) => Array<JSX.Element> = routes => {
         {routerMap(route.children)}
       </Route>
     )
-  );
-};
+  )
+}
 root.render(
   <Router>
     <Suspense fallback={<Loading />}>
@@ -57,4 +57,4 @@ root.render(
       </Routes>
     </Suspense>
   </Router>
-);
+)
