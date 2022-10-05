@@ -3,6 +3,7 @@ import { API_DOMAIN } from './config'
 import QueryString from 'qs'
 import { checkRedirect } from '@utils/index'
 import storage from '@utils/storage'
+import { Toast } from 'antd-mobile'
 interface RequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
 }
@@ -18,25 +19,24 @@ const request = (method: 'get' | 'post', url: string, params?: any, config?: Axi
   const finalConfig: RequestConfig = { ...defaultConfig, ...config }
   const instance: AxiosInstance = axios.create(finalConfig)
   instance.interceptors.request.use((req: AxiosRequestConfig<any>) => {
-    // if (storage.get('accessToken')) {
-    //   req.headers!.accessToken = storage.get('accessToken')
-    // } else {
+    const isLogin = storage.get('userInfo') && storage.get('userInfo').id;
+    // if (!isLogin) {
     //   checkRedirect()
     //   return Promise.reject('未登录')
     // }
     return req
   },
-  error => {
-    return Promise.reject(error)
-  }
+    error => {
+      return Promise.reject(error)
+    }
   )
 
   instance.interceptors.response.use(
-    response => {      
+    response => {
       if (response.status === 200 && response.data.success) {
         return response.data
       } else {
-        console.log((response.data && response.data.msg) || '糟糕，出错了')
+        Toast.show(response.data.errorMsg);
         return Promise.reject(response.data)
       }
     },

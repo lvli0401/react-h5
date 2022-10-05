@@ -1,9 +1,10 @@
 import storage from "./storage";
 import { getTokenByCode } from '@/apis/index';
+import { Toast } from "antd-mobile";
 
 const config = {
-  appid: 'wx858f95d036ff8738', // 测试公众号
-  // appid: 'wxe5be0ea7c9f3ab15', // 南桥公众号id
+  // appid: 'wx858f95d036ff8738', // 测试公众号
+  appid: 'wxe5be0ea7c9f3ab15', // 南桥公众号id
 };
 
 
@@ -56,23 +57,19 @@ const checkRedirect = async () => {
     window.location.replace(generateOAuthUrl(config));
   }
   const code = getQueryString('code');
-  const res = await getTokenByCode({ code: code || '' });
-  console.log(res, 'res');
-  
-  // return res;
-
-  const result = {
-    accessToken: '',
-    userInfoDTO: {
-      "id": 1,
-      "headPic": "123456",
-      "wechatName": "syxyanc",
-      "userType": 0,
-      "createdAt": 1663492654622
-    }
-  }
-  storage.set('accessToken', result.accessToken);
+  const result: any = await getTokenByCode({ code: code || '' });
+  // const result = {
+  //   accessToken: '',
+  //   userInfoDTO: {
+  //     "id": 1,
+  //     "headPic": "123456",
+  //     "wechatName": "syxyanc",
+  //     "userType": 0,
+  //     "createdAt": 1663492654622
+  //   }
+  // }
   storage.set('userInfo', result.userInfoDTO);
+  Toast.show("登录成功")
 };
 
 export {

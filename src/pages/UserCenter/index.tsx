@@ -61,7 +61,7 @@ const Record: React.FC<any> = (props: any) => {
   useEffect(() => {
     const { userType, headPic, wechatName } = storage.get('userInfo');
     const isManagement = userType === 1;
-    setBarList(!isManagement ? managementList : commonlist);
+    setBarList(isManagement ? managementList : commonlist);
     setAvatar(headPic || DefAvatar);
     setUserName(wechatName);
   }, [])

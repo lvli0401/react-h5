@@ -16,6 +16,7 @@ import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
 import { stadiumInfoListAll, venuesOrder } from '@/apis/index';
 import styles from './index.module.scss'
 import { useNavigate } from "react-router-dom"
+import storage from '@/utils/storage'
 
 interface timeRangeVosProps {
   startTime: string;
@@ -80,11 +81,14 @@ const Venues: React.FC<any> = () => {
   }
 
   const onFinish = async (values: any) => {
+    console.log(storage.get('userInfo').id, '23seflskj');
+
     const params = {
       ...values,
       timeType: values.timeType[0],
       date: dayjs(values.date).format('YYYY-MM-DD'),
       stadiumCode: curVenue.code,
+      orderPersonId: storage.get('userInfo').id
     }
     await venuesOrder(params);
     Toast.show('预约成功');
@@ -93,6 +97,9 @@ const Venues: React.FC<any> = () => {
   useEffect(() => {
     getVenuesList();
   }, []);
+
+  const maxDate = new Date(dayjs().add(1, 'M').format('YYYY-MM-DD'));
+  const minDate = new Date(dayjs().add(5, 'd').format('YYYY-MM-DD'));
 
   return (
     <div className={styles.container}>
@@ -212,7 +219,10 @@ const Venues: React.FC<any> = () => {
             }}
             rules={[{ required: true, message: '预约日期不能为空' }]}
           >
-            <DatePicker>
+            <DatePicker
+              min={minDate}
+              max={maxDate}
+            >
               {(value) =>
                 value ? dayjs(value).format('YYYY-MM-DD') : '请选择日期'
               }
