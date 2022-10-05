@@ -14,7 +14,7 @@ import Loading from './components/Loading'
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
-const routerMap: (routes: Array<RouteItem>) => Array<JSX.Element> = routes => {
+const routerMap: (routes: Array<RouteItem>) => any = routes => {
   return routes.map(route =>
     !route.children?.length ? (
       route.redirect ? (

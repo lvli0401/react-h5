@@ -20,11 +20,11 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
+    // 'plugin:@typescript-eslint/eslint-recommended',
+    // 'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
   ],
-  plugins: ['@typescript-eslint', 'prettier', 'react', 'react-hooks'],
+  plugins: ['prettier', 'react', 'react-hooks'],
   // "off" -> 0 关闭规则
   // "warn" -> 1 开启警告规则 可以提交
   // "error" -> 2 开启错误规则 无法提交
@@ -44,13 +44,13 @@ module.exports = {
     //缩进
     'indent': ['warn', 2],
     //不允许使用any
-    '@typescript-eslint/no-explicit-any': 'off',
+    // '@typescript-eslint/no-explicit-any': 'off',
     // "react/jsx-key": [true, { "checkFragmentShorthand": true }]
     // Note: you must disable the base rule as it can report incorrect errors
     'no-empty-function': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
+    // '@typescript-eslint/no-empty-function': 'off',
     //允许部分页面禁用ts检查
-    '@typescript-eslint/ban-ts-comment': 'off',
+    // '@typescript-eslint/ban-ts-comment': 'off',
     // 尽量使用单引号
     'quotes': ['warn', 'single'],
     // 行尾不加分号
