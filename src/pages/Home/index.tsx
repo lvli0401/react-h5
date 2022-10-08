@@ -8,7 +8,8 @@ import request from '@/apis/request'
 import bookRecordIcon from '@images/img-预约记录@2x.png'
 import venueIcon from '@images/img-场馆预约@2x.png'
 import demeanorIcon from '@images/img-风采展示@2x.png'
-import { useNavigate } from "react-router-dom"
+import messageIcon from '@images/img-消息通知@2x.png'
+import { useNavigate } from 'react-router-dom'
 
 const entryList = [
   {
@@ -25,10 +26,10 @@ const entryList = [
     icon: demeanorIcon,
     text: '风采展示',
   },
-  // {
-  //   icon: '',
-  //   text: '公告信息',
-  // }
+  {
+    icon: messageIcon,
+    text: '公告信息',
+  }
 ]
 
 const Home: React.FC<Record<string, never>> = () => {
@@ -61,10 +62,10 @@ const Home: React.FC<Record<string, never>> = () => {
     setHasMore(res.list.length > 0)
   }, [pageNum, demeanorList])
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   
   const goPage = (res: any) => {
-    navigate(res.path);
+    navigate(res.path)
   }
   useEffect(() => {
     getData()
