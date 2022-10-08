@@ -58,16 +58,6 @@ const checkRedirect = async () => {
   }
   const code = getQueryString('code');
   const result: any = await getTokenByCode({ code: code || '' });
-  // const result = {
-  //   accessToken: '',
-  //   userInfoDTO: {
-  //     "id": 1,
-  //     "headPic": "123456",
-  //     "wechatName": "syxyanc",
-  //     "userType": 0,
-  //     "createdAt": 1663492654622
-  //   }
-  // }
   storage.set('userInfo', result.userInfoDTO);
   Toast.show("登录成功")
 };

@@ -11,6 +11,14 @@ import {
 import 'lib-flexible'
 import routes, { RouteItem } from './router'
 import Loading from './components/Loading'
+import { checkRedirect } from '@utils/index'
+import storage from '@utils/storage'
+
+const isLogin = storage.get('userInfo')?.id;
+if (!isLogin) {
+  checkRedirect();
+}
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
