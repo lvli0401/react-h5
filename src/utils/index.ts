@@ -3,8 +3,8 @@ import { getTokenByCode } from '@/apis/index';
 import { Toast } from "antd-mobile";
 
 const config = {
-  // appid: 'wx858f95d036ff8738', // 测试公众号
-  appid: 'wxe5be0ea7c9f3ab15', // 南桥公众号id
+  appid: 'wx604f5b235a929557', // 测试公众号
+  // appid: 'wxe5be0ea7c9f3ab15', // 南桥公众号id
 };
 
 
