@@ -20,10 +20,10 @@ const request = (method: 'get' | 'post', url: string, params?: any, config?: Axi
   const instance: AxiosInstance = axios.create(finalConfig)
   instance.interceptors.request.use((req: AxiosRequestConfig<any>) => {
     const isLogin = storage.get('userInfo') && storage.get('userInfo').id;
-    // if (!isLogin) {
-    //   checkRedirect()
-    //   return Promise.reject('未登录')
-    // }
+    if (!isLogin) {
+      checkRedirect()
+      return Promise.reject('未登录')
+    }
     return req
   },
     error => {

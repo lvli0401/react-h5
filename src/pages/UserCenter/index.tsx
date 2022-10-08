@@ -59,11 +59,15 @@ const Record: React.FC<any> = (props: any) => {
   const [userName, setUserName] = useState<string>('登录');
 
   useEffect(() => {
-    const { userType, headPic, wechatName } = storage.get('userInfo');
+    const { userType, headPic, wechatName } = storage.get('userInfo') || {
+      userType: null,
+      headPic: null,
+      wechatName: null,
+    };
     const isManagement = userType === 1;
     setBarList(isManagement ? managementList : commonlist);
     setAvatar(headPic || DefAvatar);
-    setUserName(wechatName);
+    setUserName(wechatName || '登录');
   }, [])
   const navigate = useNavigate();
   const jump2Page = (path: string) => {

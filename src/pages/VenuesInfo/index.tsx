@@ -81,8 +81,6 @@ const Venues: React.FC<any> = () => {
   }
 
   const onFinish = async (values: any) => {
-    console.log(storage.get('userInfo').id, '23seflskj');
-
     const params = {
       ...values,
       timeType: values.timeType[0],
