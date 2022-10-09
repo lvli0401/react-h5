@@ -34,7 +34,7 @@ const SignupActivity = () => {
         }
       })
       if (res.success) {
-        setActivityId(activityId)
+        setActivityId(res.result.activityId)
         setSuccess(true)
       }
     },
