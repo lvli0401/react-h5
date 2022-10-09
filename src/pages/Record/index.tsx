@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LeftOutline } from "antd-mobile-icons";
 import styles from "./index.module.scss";
 import { bookingRecord } from '@/apis/index';
+import storage from '@utils/storage'
 
 
 const auditStatus = [
@@ -23,7 +24,9 @@ interface bookingRecordsProps {
 const Record: React.FC<any> = () => {
   const [list, setList] = useState<bookingRecordsProps[]>([]);
   const getRecordList = async () => {
-    const { result } = await bookingRecord();
+    const { result } = await bookingRecord({
+      userId: storage.get('userInfo')?.id,
+    });
     setList(result);
   }
 

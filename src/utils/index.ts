@@ -57,7 +57,7 @@ const checkRedirect = async () => {
     window.location.replace(generateOAuthUrl(config));
   }
   const code = getQueryString('code');
-  const result: any = await getTokenByCode({ code: code || '' });
+  const { result } = await getTokenByCode({ code: code || '' });
   storage.set('userInfo', result.userInfoDTO);
   Toast.show("登录成功")
 };

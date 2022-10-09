@@ -20,7 +20,7 @@ export const testRequest = (
 ): AxiosPromise<ResponseData<UserInfo>> =>
   request("post", "http://expo.liufashi.top/type/getImg", params);
 interface bookingRecordProps {
-  openId?: string;
+  userId?: string;
 }
 // 预约记录列表
 export const bookingRecord = (
@@ -75,6 +75,6 @@ interface userINfoSubProps {
 }
 export const getTokenByCode = (
   params: tokenProps = {}
-): AxiosPromise<ResponseData<tokenRes>> =>
+): any =>
   request("get", "/nan_qiao/wechat/code_for_token", params);
 
