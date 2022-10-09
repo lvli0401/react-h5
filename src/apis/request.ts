@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosInstance } from 'a
 import { API_DOMAIN } from './config'
 import QueryString from 'qs'
 import { Toast } from 'antd-mobile'
+import storage from '@utils/storage'
+
 interface RequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
 }
@@ -16,6 +18,17 @@ const defaultConfig: RequestConfig = {
 const request = (method: 'get' | 'post', url: string, params?: any, config?: AxiosRequestConfig): any => {
   const finalConfig: RequestConfig = { ...defaultConfig, ...config }
   const instance: AxiosInstance = axios.create(finalConfig)
+
+  instance.interceptors.request.use((req: AxiosRequestConfig<any>) => {
+    if (storage.get('userInfo')?.id) {
+      req.headers!.userId = storage.get('userInfo')?.id;
+    }
+    return req
+  },
+    error => {
+      return Promise.reject(error)
+    }
+  )
 
   instance.interceptors.response.use(
     response => {
