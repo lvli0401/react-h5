@@ -78,3 +78,6 @@ export const getTokenByCode = (
 ): any =>
   request("get", "/nan_qiao/wechat/code_for_token", params);
 
+export const getUserType = (params?: any) =>
+  request("post", "/nan_qiao/user_info/query", params);
+

@@ -10,6 +10,8 @@ import venueIcon from '@images/img-场馆预约@2x.png'
 import demeanorIcon from '@images/img-风采展示@2x.png'
 import messageIcon from '@images/img-消息通知@2x.png'
 import { useNavigate } from 'react-router-dom'
+import { getUserType } from '@/apis/index';
+import storage from '@utils/storage'
 
 const entryList = [
   {
@@ -63,11 +65,19 @@ const Home: React.FC<Record<string, never>> = () => {
   }, [pageNum, demeanorList])
 
   const navigate = useNavigate()
-  
+
   const goPage = (res: any) => {
     navigate(res.path)
   }
+
+  const queryUserType = async () => {
+    const { success, result } = await getUserType({});
+    if (success) {
+      storage.set('userInfo', result);
+    }
+  }
   useEffect(() => {
+    queryUserType();
     getData()
   }, [])
   return (
