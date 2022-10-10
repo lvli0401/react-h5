@@ -44,7 +44,8 @@ const DataCenter: React.FC<Record<string, never>> = () => {
                 className={classnames([
                   styles.tabItem,
                   curId === i.id ? styles.active : ''
-                ])} key={i.id}
+                ])}
+                key={i.id}
                 onClick={() => changeTabs(i.id)}
               >
                 {i.name}

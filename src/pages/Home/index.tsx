@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styles from './index.module.scss'
 import Layout from '@components/Layout'
 import { Link } from 'react-router-dom'
@@ -10,35 +10,38 @@ import venueIcon from '@images/img-场馆预约@2x.png'
 import demeanorIcon from '@images/img-风采展示@2x.png'
 import messageIcon from '@images/img-消息通知@2x.png'
 import { useNavigate } from 'react-router-dom'
-import { getUserType } from '@/apis/index';
+import { getUserType } from '@/apis/index'
 import storage from '@utils/storage'
-
-const entryList = [
-  {
-    icon: bookRecordIcon,
-    text: '预约记录',
-    path: '/record'
-  },
-  {
-    icon: venueIcon,
-    text: '场馆预约',
-    path: '/venuesInfo'
-  },
-  {
-    icon: demeanorIcon,
-    text: '风采展示',
-  },
-  {
-    icon: messageIcon,
-    text: '公告信息',
-  }
-]
 
 const Home: React.FC<Record<string, never>> = () => {
   const [banner, setBanner] = useState()
   const [hasMore, setHasMore] = useState(false)
   const [demeanorList, setDemeanorList] = useState<any[]>([])
   const [pageNum, setPageNum] = useState(1)
+  const refDemeanorTitle = useRef<any>(null)
+  const entryList = useMemo(() => ([
+    {
+      icon: bookRecordIcon,
+      text: '预约记录',
+      path: '/record'
+    },
+    {
+      icon: venueIcon,
+      text: '场馆预约',
+      path: '/venuesInfo'
+    },
+    {
+      icon: demeanorIcon,
+      text: '风采展示',
+      action: () => {
+        refDemeanorTitle.current.scrollIntoView()
+      }
+    },
+    {
+      icon: messageIcon,
+      text: '公告信息',
+    }
+  ]), [refDemeanorTitle])
   const getData = useCallback(async () => {
     const [{ result: res1 }, { result: res2 }] = await Promise.all([
       request('post', '/nan_qiao/content/query', { pageNum: 1, pageSize: 10, type: 'BANNER' }),
@@ -67,17 +70,18 @@ const Home: React.FC<Record<string, never>> = () => {
   const navigate = useNavigate()
 
   const goPage = (res: any) => {
+    if (res.action) res.action()
     navigate(res.path)
   }
 
   const queryUserType = async () => {
-    const { success, result } = await getUserType({});
+    const { success, result } = await getUserType({})
     if (success) {
-      storage.set('userInfo', result);
+      storage.set('userInfo', result)
     }
   }
   useEffect(() => {
-    queryUserType();
+    queryUserType()
     getData()
   }, [])
   return (
@@ -94,7 +98,7 @@ const Home: React.FC<Record<string, never>> = () => {
             </div>
           ))}
         </div>
-        <div className={styles.venueTitle}>活动风采</div>
+        <div ref={refDemeanorTitle} className={styles.venueTitle}>活动风采</div>
         {demeanorList.map((v, index) => <VenueCard key={index} data={v} />)}
         <InfiniteScroll loadMore={loadMore} hasMore={hasMore}>加载中...</InfiniteScroll>
       </div>

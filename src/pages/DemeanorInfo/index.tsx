@@ -82,7 +82,7 @@ const DemeanorInfo = () => {
   }, [])
   return (
     <div className={styles.info}>
-      <p className={styles.title}>name</p>
+      <p className={styles.title}>{name}</p>
       <div className={styles.waterfall}>
         <div className={styles.left}>
           {leftPart.map((v, i) => (
