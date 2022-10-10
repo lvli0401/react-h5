@@ -36,8 +36,8 @@ const routes: Array<RouteItem> = [
     component: lazy(() => import('@/pages/VenueBooking')),
   },
   {
-    path: 'activity-booking',
-    component: lazy(() => import('@/pages/ActivityBooking')),
+    path: 'activity-audit',
+    component: lazy(() => import('@/pages/ActivityAudit')),
   },
   {
     path: 'sign-activity',

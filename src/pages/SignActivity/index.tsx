@@ -1,104 +1,148 @@
-import React, { RefObject, useState } from 'react'
+import React, { RefObject, useState, useEffect } from 'react'
 import dayjs from 'dayjs'
 import { LeftOutline, DownFill } from 'antd-mobile-icons'
 import {
   Form,
   Input,
   Button,
-  Dialog,
-  Space,
-  Tag,
   TextArea,
   Picker,
   DatePicker,
   Selector,
-  Slider,
-  Stepper,
-  Switch,
   Image,
+  Toast
 } from 'antd-mobile'
 import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
+import { stadiumInfoListAll, venuesOrder } from '@/apis/index'
 import styles from './index.module.scss'
+import { useNavigate } from 'react-router-dom'
+import storage from '@/utils/storage'
 
-const basicColumns = [
-  [
-    { label: '周一', value: 'Mon' },
-    { label: '周二', value: 'Tues' },
-    { label: '周三', value: 'Wed' },
-    { label: '周四', value: 'Thur' },
-    { label: '周五', value: 'Fri' },
-  ],
-]
+interface timeRangeVosProps {
+  startTime: string;
+  endTime: string;
+}
+interface venuesProp {
+  code: string;
+  name: string;
+  note: string;
+  location: string;
+  seatingCapacity?: number;
+  showPhoto: string;
+  detailPhotos: string[];
+  timeRangeVos: timeRangeVosProps[];
+  status: number;
+}
+
+interface colProps {
+  label: string;
+  value: string;
+}
 
 const Venues: React.FC<any> = () => {
-  const [value, setValue] = useState<(string | null)[]>([])
+  const [list, setList] = useState<colProps[]>([])
+  const [curVenue, setCurVenue] = useState<venuesProp>({
+    code: '',
+    name: '',
+    note: '',
+    status: -1,
+    detailPhotos: [],
+    showPhoto: '',
+    location: '',
+    timeRangeVos: []
+  })
+  const [originList, setOriginList] = useState<venuesProp[]>([])
+
+  const getVenuesList = async () => {
+    const { result: { list } } = await stadiumInfoListAll()
+    if (list && list.length > 0) {
+      setOriginList(list)
+      setCurVenue(list[0])
+      const rList = list.map((i: any) => ({
+        label: i.name,
+        value: i.code,
+      }))
+      setList(rList)
+      setValue([rList[0].value])
+    }
+  }
+
+  const navigate = useNavigate()
+  const goBack = () => {
+    navigate(-1)
+  }
+
+  const [value, setValue] = useState<any[]>([])
+
+  const onConfirm = (val: any[]) => {
+    setValue(val)
+    const curIndex = originList.findIndex((i: any) => i.code === val[0])
+    setCurVenue(originList[curIndex])
+  }
+
+  const onFinish = async (values: any) => {
+    const params = {
+      ...values,
+      timeType: values.timeType[0],
+      date: dayjs(values.date).format('YYYY-MM-DD'),
+      stadiumCode: curVenue.code,
+      orderPersonId: storage.get('userInfo').id
+    }
+    await venuesOrder(params)
+    Toast.show('预约成功')
+  }
+
+  useEffect(() => {
+    getVenuesList()
+  }, [])
+
+  const maxDate = new Date(dayjs().add(1, 'M').format('YYYY-MM-DD'))
+  const minDate = new Date(dayjs().add(5, 'd').format('YYYY-MM-DD'))
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
+      <div className={styles.header} onClick={() => {
+        goBack()
+      }}>
         <LeftOutline fontSize={16} />
-        <span className={styles.title}>活动预约审核列表</span>
+        <span className={styles.title}>活动报名</span>
       </div>
       <div className={styles.info}>
         <Image
           className={styles.venuePic}
-          src="https://cdn.leoao.com/%20litta/mini/index/card.png"
+          src={curVenue.showPhoto}
         />
-        <h2 className={styles.subTitle}>活动简介信息</h2>
         <div className={styles.infoContent}>
-          <p className={styles.infoWord}>这里是信息内容</p>
+          <p className={styles.infoWord}>{curVenue.note}</p>
         </div>
-        <h2 className={styles.subTitle}>开放时间</h2>
+        <h2 className={styles.subTitle}>活动时间</h2>
         <div className={styles.infoContent}>
-          <div className={styles.infoWord}>上午 08:00 - 12:00</div>
-          <div className={styles.infoWord}>下午 14:00 - 20:00</div>
-        </div>
-        <h2 className={styles.subTitle}>地址信息</h2>
-        <div className={styles.infoWord}>上海市长宁区。。。</div>
-      </div>
-      <div className={styles.changeVenues}>
-        <Picker
-          columns={basicColumns}
-          value={value}
-          onConfirm={setValue}
-          onSelect={(val, extend) => {
-            console.log('onSelect', val, extend.items)
-          }}
-        >
-          {(items, { open }) => {
-            return (
-              <div className={styles.changeInner}>
-                <Image
-                  className={styles.venueIcon}
-                  src="https://cdn.leoao.com/%20litta/mini/index/card.png"
-                />
-
-                <div className={styles.venueName}>
-                  {items.every((item) => item === null)
-                    ? '默认活动'
-                    : items.map((item) => item?.label)}
-                </div>
-                <div className={styles.bar} onClick={open}>
-                  更换
-                  <DownFill />
-                </div>
+          {
+            curVenue.timeRangeVos.map((i, index) => (
+              <div key={index} className={styles.infoWord}>
+                {i.startTime} - {i.endTime}
               </div>
-            )
-          }}
-        </Picker>
+            ))
+          }
+        </div>
+        <h2 className={styles.subTitle}>活动地点</h2>
+        <div className={styles.infoWord}>{curVenue.location}</div>
+        <h2 className={styles.subTitle}>活动内容</h2>
+        <div className={styles.infoWord}>{curVenue.location}</div>
       </div>
       <div className={styles.formBox}>
         <Form
+          onFinish={onFinish}
           layout="horizontal"
           footer={
             <Button block type="submit" color="primary" size="large">
-              预约申请
+              报名
             </Button>
           }
         >
-          <Form.Header>预约信息</Form.Header>
+          <Form.Header>报名信息</Form.Header>
           <Form.Item
-            name="name"
+            name="userName"
             label="姓名"
             rules={[{ required: true, message: '姓名不能为空' }]}
           >
@@ -114,58 +158,10 @@ const Venues: React.FC<any> = () => {
           </Form.Item>
 
           <Form.Item
-            name="teamName"
-            label="团队名"
-            rules={[{ required: true, message: '团队名不能为空' }]}
+            name="email"
+            label="邮箱"
           >
-            <Input onChange={console.log} placeholder="请输入团队名" />
-          </Form.Item>
-          <Form.Item
-            name="address"
-            label="排练内容"
-            rules={[{ required: true, message: '排练内容不能为空' }]}
-          >
-            <TextArea
-              placeholder="请输入排练内容"
-              maxLength={100}
-              rows={2}
-              showCount
-            />
-          </Form.Item>
-          <Form.Item
-            name="teamName"
-            label="预约人数"
-            rules={[{ required: true, message: '预约人数不能为空' }]}
-          >
-            <Input onChange={console.log} placeholder="请输入预约人数" />
-          </Form.Item>
-          <Form.Item
-            name="date"
-            label="预约日期"
-            trigger="onConfirm"
-            onClick={(e, datePickerRef: RefObject<DatePickerRef>) => {
-              datePickerRef.current?.open()
-            }}
-            rules={[{ required: true, message: '预约日期不能为空' }]}
-          >
-            <DatePicker>
-              {(value) =>
-                value ? dayjs(value).format('YYYY-MM-DD') : '请选择日期'
-              }
-            </DatePicker>
-          </Form.Item>
-          <Form.Item name="favoriteFruits" label="时段选择">
-            <Selector
-              style={{
-                '--padding': '2px',
-              }}
-              columns={3}
-              options={[
-                { label: '上午', value: 'apple' },
-                { label: '下午', value: 'orange' },
-                { label: '晚上', value: 'banana' },
-              ]}
-            />
+            <Input onChange={console.log} placeholder="请输入邮箱" />
           </Form.Item>
         </Form>
       </div>

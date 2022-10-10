@@ -13,9 +13,9 @@ import {
   Toast
 } from 'antd-mobile'
 import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
-import { stadiumInfoListAll, venuesOrder } from '@/apis/index';
+import { stadiumInfoListAll, venuesOrder } from '@/apis/index'
 import styles from './index.module.scss'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import storage from '@/utils/storage'
 
 interface timeRangeVosProps {
@@ -40,44 +40,44 @@ interface colProps {
 }
 
 const Venues: React.FC<any> = () => {
-  const [list, setList] = useState<colProps[]>([]);
+  const [list, setList] = useState<colProps[]>([])
   const [curVenue, setCurVenue] = useState<venuesProp>({
     code: '',
     name: '',
     note: '',
     status: -1,
     detailPhotos: [],
-    showPhoto: "",
-    location: "",
+    showPhoto: '',
+    location: '',
     timeRangeVos: []
-  });
-  const [originList, setOriginList] = useState<venuesProp[]>([]);
+  })
+  const [originList, setOriginList] = useState<venuesProp[]>([])
 
   const getVenuesList = async () => {
-    const { result: { list } } = await stadiumInfoListAll();
+    const { result: { list } } = await stadiumInfoListAll()
     if (list && list.length > 0) {
-      setOriginList(list);
-      setCurVenue(list[0]);
+      setOriginList(list)
+      setCurVenue(list[0])
       const rList = list.map((i: any) => ({
         label: i.name,
         value: i.code,
-      }));
-      setList(rList);
-      setValue([rList[0].value]);
+      }))
+      setList(rList)
+      setValue([rList[0].value])
     }
   }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const goBack = () => {
-    navigate(-1);
-  };
+    navigate(-1)
+  }
 
-  const [value, setValue] = useState<any[]>([]);
+  const [value, setValue] = useState<any[]>([])
 
   const onConfirm = (val: any[]) => {
-    setValue(val);
-    const curIndex = originList.findIndex((i: any) => i.code === val[0]);
-    setCurVenue(originList[curIndex]);
+    setValue(val)
+    const curIndex = originList.findIndex((i: any) => i.code === val[0])
+    setCurVenue(originList[curIndex])
   }
 
   const onFinish = async (values: any) => {
@@ -88,21 +88,21 @@ const Venues: React.FC<any> = () => {
       stadiumCode: curVenue.code,
       orderPersonId: storage.get('userInfo').id
     }
-    await venuesOrder(params);
-    Toast.show('预约成功');
-  };
+    await venuesOrder(params)
+    Toast.show('预约成功')
+  }
 
   useEffect(() => {
-    getVenuesList();
-  }, []);
+    getVenuesList()
+  }, [])
 
-  const maxDate = new Date(dayjs().add(1, 'M').format('YYYY-MM-DD'));
-  const minDate = new Date(dayjs().add(5, 'd').format('YYYY-MM-DD'));
+  const maxDate = new Date(dayjs().add(1, 'M').format('YYYY-MM-DD'))
+  const minDate = new Date(dayjs().add(5, 'd').format('YYYY-MM-DD'))
 
   return (
     <div className={styles.container}>
       <div className={styles.header} onClick={() => {
-        goBack();
+        goBack()
       }}>
         <LeftOutline fontSize={16} />
         <span className={styles.title}>场馆预约</span>

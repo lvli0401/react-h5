@@ -1,5 +1,5 @@
-import request from "./request";
-import { AxiosPromise } from "axios";
+import request from './request'
+import { AxiosPromise } from 'axios'
 interface ResponseData<T = unknown> {
   code: number;
   data: T;
@@ -9,7 +9,7 @@ interface ResponseData<T = unknown> {
 
 //eggs:
 interface UserInfo {
-  username?: "";
+  username?: '';
 }
 interface TestProps {
   userId?: string;
@@ -18,7 +18,7 @@ interface TestProps {
 export const testRequest = (
   params: TestProps = {}
 ): AxiosPromise<ResponseData<UserInfo>> =>
-  request("post", "http://expo.liufashi.top/type/getImg", params);
+  request('post', 'http://expo.liufashi.top/type/getImg', params)
 interface bookingRecordProps {
   userId?: string;
 }
@@ -26,45 +26,45 @@ interface bookingRecordProps {
 export const bookingRecord = (
   params: bookingRecordProps = {}
 ): any =>
-  request("post", "/nan_qiao/user_info/user_book_record", params);
+  request('post', '/nan_qiao/user_info/user_book_record', params)
 // 场馆审核记录列表查询
 export const venuesAuditList = (
   params: any = {}
 ): any =>
-  request("post", "/nan_qiao/stadiumInfo/listAllOrderRecord", params);
+  request('post', '/nan_qiao/stadiumInfo/listAllOrderRecord', params)
 
 // 场馆审核
 export const doAuditVenue = (
   params: any = {}
 ): any =>
-  request("post", "/nan_qiao/stadium/order/aduit", params);
+  request('post', '/nan_qiao/stadium/order/aduit', params)
 
 // 场馆预约率
 export const getQueryOrder = (
   params: any = {}
 ): any =>
-  request("post", "/nan_qiao/data/stadium/queryOrder", params);
+  request('post', '/nan_qiao/data/stadium/queryOrder', params)
 
 // 场馆
 export const getQueryStadiumOrder = (
   params: any = {}
 ): any =>
-  request("post", "/nan_qiao/data/stadium/queryStadiumOrder", params);
+  request('post', '/nan_qiao/data/stadium/queryStadiumOrder', params)
 
 export const stadiumInfoListAll = (
   params: any = {}
 ): any =>
-  request("post", "/nan_qiao/stadiumInfo/listAll", params);
+  request('post', '/nan_qiao/stadiumInfo/listAll', params)
 
 export const venuesOrder = (
   params: any = {}
 ): any =>
-  request("post", "/nan_qiao/stadium/schedule/order", params);
+  request('post', '/nan_qiao/stadium/schedule/order', params)
 interface tokenProps {
   code?: string;
 }
 interface tokenRes {
-  accessToken?: "";
+  accessToken?: '';
   userInfoDTO?: userINfoSubProps;
 }
 interface userINfoSubProps {
@@ -76,8 +76,8 @@ interface userINfoSubProps {
 export const getTokenByCode = (
   params: tokenProps = {}
 ): any =>
-  request("get", "/nan_qiao/wechat/code_for_token", params);
+  request('get', '/nan_qiao/wechat/code_for_token', params)
 
 export const getUserType = (params?: any) =>
-  request("post", "/nan_qiao/user_info/query", params);
+  request('post', '/nan_qiao/user_info/query', params)
 
