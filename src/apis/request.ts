@@ -21,13 +21,13 @@ const request = (method: 'get' | 'post', url: string, params?: any, config?: Axi
 
   instance.interceptors.request.use((req: AxiosRequestConfig<any>) => {
     if (storage.get('userInfo')?.id) {
-      req.headers!.userId = storage.get('userInfo')?.id;
+      req.headers!.userId = storage.get('userInfo')?.id
     }
     return req
   },
-    error => {
-      return Promise.reject(error)
-    }
+  error => {
+    return Promise.reject(error)
+  }
   )
 
   instance.interceptors.response.use(
@@ -35,7 +35,7 @@ const request = (method: 'get' | 'post', url: string, params?: any, config?: Axi
       if (response.status === 200 && response.data.success) {
         return response.data
       } else {
-        Toast.show(response.data.errorMsg);
+        Toast.show(response.data.errorMsg)
         return Promise.reject(response.data)
       }
     },
