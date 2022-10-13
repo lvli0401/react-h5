@@ -4,15 +4,8 @@ import { LeftOutline } from 'antd-mobile-icons'
 import { venuesAuditList, doAuditVenue } from '@/apis/index'
 import styles from './index.module.scss'
 import { Toast } from 'antd-mobile'
-
-interface vProps {
-  orderId?: number;
-  stadiumName?: string;
-  orderTime?: string;
-  orderPersonName?: string;
-  orderPeoleCnt?: number;
-  orderStatus: number;
-}
+import request from '@/apis/request'
+import {activityProps} from './type'
 
 const Record: React.FC<any> = () => {
 
@@ -21,17 +14,17 @@ const Record: React.FC<any> = () => {
     navigate(-1)
   }
 
-  const [venueList, setVenueList] = useState<vProps[]>([])
+  const [activityList, setactivityList] = useState<activityProps[]>([])
 
   const getList = async () => {
-    const { result } = await venuesAuditList()
-    setVenueList(result.list)
+    const { result } = await request('post', '/nan_qiao/activity/apply/query/list', {})
+    setactivityList(result.list)
   }
 
   const doAudit = async (id: number | undefined, val: boolean) => {
-    await doAuditVenue({
-      orderId: id,
-      auditSuc: val
+    await request('post', '/nan_qiao/activity/apply/audit', {
+      activityId: id,
+      auditResult: val
     })
     Toast.show('操作成功')
     getList()
@@ -39,8 +32,8 @@ const Record: React.FC<any> = () => {
 
 
   const auditComponent = (id: any, status: any) => {
-    // status 1 , 2, 3  初始， 通过， 失败
-    if (status === 1) {
+    // status 0, 1, 2  初始， 通过， 失败
+    if (status === 0) {
       return (
         <div className={styles.isAudit}>
           <div className={styles.auditSuccess}>是否审核通过</div>
@@ -54,7 +47,7 @@ const Record: React.FC<any> = () => {
           </div>
         </div>
       )
-    } else if (status === 2) {
+    } else if (status === 1) {
       return <div className={styles.auditSuccess}>已通过审核</div>
     }
     return (
@@ -75,26 +68,26 @@ const Record: React.FC<any> = () => {
         <span className={styles.title}>活动预约审核列表</span>
       </div>
       {
-        venueList.map((i, index) => (
-          <div className={styles.card} key={`${i.orderId} + ${index}`}>
+        activityList.map((i, index) => (
+          <div className={styles.card} key={i.activityId}>
             <div className={styles.cardItem}>
               <span className={styles.itemLabel}>活动名称</span>
-              <span className={styles.itemContent}>{i.stadiumName}</span>
+              <span className={styles.itemContent}>{i.name}</span>
             </div>
             <div className={styles.cardItem}>
-              <span className={styles.itemLabel}>预约时间</span>
-              <span className={styles.itemContent}>{i.orderTime}</span>
+              <span className={styles.itemLabel}>活动时间</span>
+              <span className={styles.itemContent}>{i.startTime}至{i.endTime}</span>
             </div>
             <div className={styles.cardItem}>
               <span className={styles.itemLabel}>预约人</span>
-              <span className={styles.itemContent}>{i.orderPersonName}</span>
+              <span className={styles.itemContent}>{i.userName}</span>
             </div>
             <div className={styles.cardItem}>
               <span className={styles.itemLabel}>预约人数</span>
-              <span className={styles.itemContent}>{i.orderPeoleCnt}</span>
+              <span className={styles.itemContent}>{i.userNumber}</span>
             </div>
             <div className={styles.cardItem}>
-              {auditComponent(i.orderId, i.orderStatus)}
+              {auditComponent(i.activityId, i.status)}
             </div>
           </div>
         ))

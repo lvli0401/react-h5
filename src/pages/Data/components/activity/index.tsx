@@ -1,218 +1,81 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import * as echarts from 'echarts'
 import styles from './index.module.scss'
+import { Button, Calendar, Popup, Toast } from 'antd-mobile'
+import dayjs from 'dayjs'
+import request from '@/apis/request'
+
 
 function LineBarChart() {
-  const chartNameRef = useRef<any>(null)
-  const chartGenderRef = useRef<any>(null)
-  const chartTypeRef = useRef<any>(null)
+  const chartAgeRef = useRef<any>(null)
+  const chartSexRef = useRef<any>(null)
+  const [range, setRange] = useState<[Date, Date]>([dayjs().add(-30, 'd').toDate(), dayjs().toDate()])
+  const [visible, setVisible] = useState(false)
 
+  const initData = useCallback(async () => {
+    const [{ result: ageData}, {result: sexData}] = await Promise.all([
+      request('post', '/nan_qiao/data/activity/query_activity_data', {
+        startTime: dayjs(range[0]).valueOf(),
+        endTime: dayjs(range[0]).valueOf(),
+        type: 0,
+      }),
+      request('post', '/nan_qiao/data/activity/query_activity_data', {
+        startTime: dayjs(range[0]).valueOf(),
+        endTime: dayjs(range[0]).valueOf(),
+        type: 1,
+      })
+    ])
+    const option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          // Use axis to trigger tooltip
+          type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+        }
+      },
+      legend: {},
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      yAxis: {
+        type: 'value'
+      },
+    }
+    const chartAgeInstance = echarts.init(chartAgeRef.current)
+    chartAgeInstance.setOption({...option, ...ageData})
+    const chartSexInstance = echarts.init(chartSexRef.current)
+    chartSexInstance.setOption({...option, ...sexData})
+  }, [range])
 
   useEffect(() => {
-    const chartNameInstance = echarts.init(chartNameRef.current)
-    const optionName = {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      legend: {
-        data: ['Forest', 'Steppe', 'Desert', 'Wetland']
-      },
-      xAxis: [
-        {
-          type: 'category',
-          axisTick: { show: false },
-          data: ['2012', '2013', '2014', '2015', '2016']
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value'
-        }
-      ],
-      series: [
-        {
-          name: 'Forest',
-          type: 'bar',
-          barGap: 0,
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [320, 332, 301, 334, 390]
-        },
-        {
-          name: 'Steppe',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [220, 182, 191, 234, 290]
-        },
-        {
-          name: 'Desert',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [150, 232, 201, 154, 190]
-        },
-        {
-          name: 'Wetland',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [98, 77, 101, 99, 40]
-        }
-      ]
-    }
-    chartNameInstance.setOption(optionName)
-    const chartGenderInstance = echarts.init(chartGenderRef.current)
-    const optionGender = {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      legend: {
-        data: ['Forest', 'Steppe', 'Desert', 'Wetland']
-      },
-      xAxis: [
-        {
-          type: 'category',
-          axisTick: { show: false },
-          data: ['2012', '2013', '2014', '2015', '2016']
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value'
-        }
-      ],
-      series: [
-        {
-          name: 'Forest',
-          type: 'bar',
-          barGap: 0,
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [320, 332, 301, 334, 390]
-        },
-        {
-          name: 'Steppe',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [220, 182, 191, 234, 290]
-        },
-        {
-          name: 'Desert',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [150, 232, 201, 154, 190]
-        },
-        {
-          name: 'Wetland',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [98, 77, 101, 99, 40]
-        }
-      ]
-    }
-    chartGenderInstance.setOption(optionGender)
-    const chartTypeInstance = echarts.init(chartTypeRef.current)
-    const optionType = {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      legend: {
-        data: ['Forest', 'Steppe', 'Desert', 'Wetland']
-      },
-      xAxis: [
-        {
-          type: 'category',
-          axisTick: { show: false },
-          data: ['2012', '2013', '2014', '2015', '2016']
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value'
-        }
-      ],
-      series: [
-        {
-          name: 'Forest',
-          type: 'bar',
-          barGap: 0,
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [320, 332, 301, 334, 390]
-        },
-        {
-          name: 'Steppe',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [220, 182, 191, 234, 290]
-        },
-        {
-          name: 'Desert',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [150, 232, 201, 154, 190]
-        },
-        {
-          name: 'Wetland',
-          type: 'bar',
-          // label: labelOption,
-          emphasis: {
-            focus: 'series'
-          },
-          data: [98, 77, 101, 99, 40]
-        }
-      ]
-    }
-    chartTypeInstance.setOption(optionType)
-  }, [])
+    initData()
+  }, [range, initData])
 
   return (
     <div className={styles.chart} style={{ textAlign: 'center' }}>
+      <div className={styles.timeWrapper}>
+        <Button onClick={() => setVisible(true)} className={styles.time}>请选择时间段</Button>
+        {range && <span>{dayjs(range[0]).format('YYYY.MM.DD')}~{dayjs(range[1]).format('YYYY.MM.DD')}</span>}
+      </div>
+      <Popup visible={visible} onMaskClick={() => setVisible(false)}>
+        <Calendar
+          defaultValue={[dayjs().add(-30, 'd').toDate(), dayjs().toDate()]}
+          selectionMode='range'
+          max={dayjs().toDate()}
+          min={dayjs().add(-90, 'd').toDate()}
+          onChange={(val) => {
+            val && setRange(val)
+          }}
+        />
+      </Popup>
       <div className={styles.genderWrapper}>
-        <div ref={chartNameRef} className={styles.gender}></div>
+        <div ref={chartAgeRef} className={styles.gender}></div>
       </div>
       <div className={styles.genderWrapper}>
-        <div ref={chartGenderRef} className={styles.gender}></div>
-      </div>
-      <div className={styles.genderWrapper}>
-        <div ref={chartTypeRef} className={styles.gender}></div>
+        <div ref={chartSexRef} className={styles.gender}></div>
       </div>
     </div>
   )

@@ -28,7 +28,7 @@ const QRCodePage = ({activityId}: {activityId: string}) => {
         <div style={{display: 'none'}}>
           <QRCodeCanvas
             id="qrCode"
-            value={`${window.location.host}/#/sign-activity?activity_id=${activityId}`}
+            value={`${window.location.origin}/#/sign-activity?activity_id=${activityId}`}
             size={100} // 二维码的大小
             fgColor="#000000" // 二维码的颜色
             style={{ margin: 'auto' }}
