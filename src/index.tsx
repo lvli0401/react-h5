@@ -14,9 +14,16 @@ import Loading from './components/Loading'
 import { checkRedirect } from '@utils/index'
 import storage from '@utils/storage'
 
-const isLogin = storage.get('userInfo')?.id;
+storage.set('userInfo', {
+  createdAt:1665120592000,
+  headPic:'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJ69aCsPxaSqlqd5ee1Q9CibZ43nwDibQzeLomQhZ5lYLVVpocibIMjHXkickRNXbAsBbib4jRGELjpW8Q/132',
+  id:6,
+  userType:1,
+  wechatName:'銀八せんせい',
+})
+const isLogin = storage.get('userInfo')?.id
 if (!isLogin) {
-  checkRedirect();
+  checkRedirect()
 }
 
 const root = ReactDOM.createRoot(

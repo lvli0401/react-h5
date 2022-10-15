@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 import { Toast } from 'antd-mobile'
 import request from '@/apis/request'
 import {activityProps} from './type'
+import dayjs from 'dayjs'
 
 const Record: React.FC<any> = () => {
 
@@ -17,11 +18,11 @@ const Record: React.FC<any> = () => {
   const [activityList, setactivityList] = useState<activityProps[]>([])
 
   const getList = async () => {
-    const { result } = await request('post', '/nan_qiao/activity/apply/query/list', {})
-    setactivityList(result.list)
+    const { result: {applyList} } = await request('post', '/nan_qiao/activity/apply/query/list', {})
+    setactivityList(applyList)
   }
 
-  const doAudit = async (id: number | undefined, val: boolean) => {
+  const doAudit = async (id: number | undefined, val: number) => {
     await request('post', '/nan_qiao/activity/apply/audit', {
       activityId: id,
       auditResult: val
@@ -39,10 +40,10 @@ const Record: React.FC<any> = () => {
           <div className={styles.auditSuccess}>是否审核通过</div>
           <div className={styles.btnBox}>
             <span className={styles.btnSuc} onClick={() => {
-              doAudit(id, true)
+              doAudit(id, 1)
             }}>通过</span>
             <span className={styles.btnFail} onClick={() => {
-              doAudit(id, false)
+              doAudit(id, 2)
             }}>不通过</span>
           </div>
         </div>
@@ -76,7 +77,9 @@ const Record: React.FC<any> = () => {
             </div>
             <div className={styles.cardItem}>
               <span className={styles.itemLabel}>活动时间</span>
-              <span className={styles.itemContent}>{i.startTime}至{i.endTime}</span>
+              <span className={styles.itemContent}>{dayjs(i.startTime).format('YYYY-MM-DD HH:mm:ss')}
+              至
+                {dayjs(i.startTime).format('YYYY-MM-DD HH:mm:ss')}</span>
             </div>
             <div className={styles.cardItem}>
               <span className={styles.itemLabel}>预约人</span>

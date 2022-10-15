@@ -16,7 +16,10 @@
     background-color: white;
     padding: 20px 12px 14px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(
+      4,
+      1fr
+    );
 
     & > div {
       display: flex;
@@ -32,7 +35,8 @@
       & > div {
         margin-top: 7px;
         font-size: 12px;
-        font-family: PingFangSC-Regular, PingFang SC;
+        font-family: PingFangSC-Regular,
+          PingFang SC;
         font-weight: 400;
         color: #666666;
         line-height: 17px;
@@ -50,7 +54,8 @@
     position: relative;
     padding-left: 24px;
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium,
+      PingFang SC;
     font-weight: 500;
     color: #ff6118;
 

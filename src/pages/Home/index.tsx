@@ -100,7 +100,7 @@ const Home: React.FC<Record<string, never>> = () => {
         </div>
         <div ref={refDemeanorTitle} className={styles.venueTitle}>活动风采</div>
         {demeanorList.map((v, index) => <VenueCard key={index} data={v} />)}
-        <InfiniteScroll loadMore={loadMore} hasMore={hasMore}>加载中...</InfiniteScroll>
+        <InfiniteScroll className={styles.loadmore} loadMore={loadMore} hasMore={hasMore}>加载中...</InfiniteScroll>
       </div>
     </Layout>
   )

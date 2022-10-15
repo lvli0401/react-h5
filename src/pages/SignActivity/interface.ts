@@ -30,7 +30,7 @@ export interface activityProp {
      /**
       * 活动图片存储路径，根据该路径下载活动图片
       */
-     imagePath?: string[];
+     imagePath?: string;
      /**
       * 人数限制
       */

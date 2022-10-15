@@ -19,15 +19,16 @@
 
   .genderWrapper {
     width: 343px;
-    height: 270px;
+    height: auto;
     background: #ffffff;
     border-radius: 8px;
     margin: 10px auto 0;
 
     .gender {
       width: 320px;
-      height: 250px;
-      overflow: hidden;
+      min-height: 250px;
+      height: auto;
+      // overflow: hidden;
       margin: 10px auto;
     }
   }

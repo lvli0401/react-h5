@@ -6,7 +6,9 @@ import {
   Input,
   Button,
   Image,
-  Toast
+  Toast,
+  Picker,
+  Radio
 } from 'antd-mobile'
 import { venuesOrder } from '@/apis/index'
 import styles from './index.module.scss'
@@ -65,9 +67,9 @@ const Venues: React.FC<any> = () => {
         <span className={styles.title}>回到首页</span>
       </div>
       <div className={styles.info}>
-        {activityInfo.imagePath && activityInfo.imagePath.length && <Image
+        {activityInfo.imagePath && <Image
           className={styles.venuePic}
-          src={activityInfo.imagePath[0]}
+          src={activityInfo.imagePath}
         />}
         {activityInfo.desc && <div className={styles.infoContent}>
           <p className={styles.infoWord}>{activityInfo.desc}</p>
@@ -111,10 +113,30 @@ const Venues: React.FC<any> = () => {
           </Form.Item>
 
           <Form.Item
-            name="email"
-            label="邮箱"
+            name="age"
+            label="年龄"
+            rules={[{ required: true, message: '年龄不能为空' }]}
           >
-            <Input placeholder="请输入邮箱" />
+            <Input placeholder="请输入年龄" />
+          </Form.Item>
+
+          <Form.Item
+            name="sex"
+            label="性别"
+            rules={[{ required: true, message: '性别不能为空' }]}
+          >
+            <Radio.Group>
+              <Radio value='1'>男</Radio>
+              <Radio style={{marginLeft: '20px'}} value='2'>女</Radio>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item
+            name="userNumber"
+            label="报名人数"
+            rules={[{ required: true, message: '报名人数不能为空' }]}
+          >
+            <Input type='number' placeholder="请输入报名人数" />
           </Form.Item>
         </Form>
       </div>

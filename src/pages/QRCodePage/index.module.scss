@@ -1,7 +1,13 @@
 .background {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(245, 245, 245, 1);
+  background-color: rgba(
+    245,
+    245,
+    245,
+    1
+  );
+  overflow: hidden;
 
   .qrCode {
     width: 299px;
@@ -18,7 +24,8 @@
 
     .title {
       font-size: 17px;
-      font-family: PingFangSC-Regular, PingFang SC;
+      font-family: PingFangSC-Regular,
+        PingFang SC;
       font-weight: 400;
       color: #151516;
       line-height: 28px;
@@ -48,7 +55,8 @@
 
       & > span {
         font-size: 15px;
-        font-family: PingFangSC-Regular, PingFang SC;
+        font-family: PingFangSC-Regular,
+          PingFang SC;
         font-weight: 400;
         color: #ff6118;
         line-height: 15px;

@@ -1,25 +1,35 @@
 .container {
   padding-bottom: 50px;
-  border-bottom: constant(safe-area-inset-bottom);
-  border-bottom: env(safe-area-inset-bottom);
+  border-bottom: constant(
+    safe-area-inset-bottom
+  );
+  border-bottom: env(
+    safe-area-inset-bottom
+  );
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+  background: #f5f5f5;
 
   .nav {
     width: 100%;
     position: fixed;
     left: 0;
     bottom: 0;
-    border-top: 1px solid var(--adm-border-color);
+    border-top: 1px solid
+      var(--adm-border-color);
     z-index: 99999;
     display: flex;
 
     .navItem {
       flex: 1;
       height: 50px;
-      margin-bottom: constant(safe-area-inset-bottom);
-      margin-bottom: env(safe-area-inset-bottom);
+      margin-bottom: constant(
+        safe-area-inset-bottom
+      );
+      margin-bottom: env(
+        safe-area-inset-bottom
+      );
       background-color: white;
       display: flex;
       align-items: center;
@@ -34,7 +44,8 @@
 
       & > span {
         font-size: 14px;
-        font-family: PingFangSC-Medium, PingFang SC;
+        font-family: PingFangSC-Medium,
+          PingFang SC;
         font-weight: 500;
         line-height: 20px;
       }
