@@ -138,6 +138,7 @@ const Venues: React.FC<any> = () => {
           >
             <Input type='number' placeholder="请输入报名人数" />
           </Form.Item>
+          <p className={styles.tips}>本人及相关预约人员承诺核酸48小时阴性，且未去过中高风险地区</p>
         </Form>
       </div>
     </div>

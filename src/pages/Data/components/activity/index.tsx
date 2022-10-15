@@ -93,8 +93,8 @@ function LineBarChart() {
         <Calendar
           defaultValue={[dayjs().add(-30, 'd').toDate(), dayjs().toDate()]}
           selectionMode='range'
-          max={dayjs().toDate()}
-          min={dayjs().add(-90, 'd').toDate()}
+          max={dayjs().add(1, 'year').toDate()}
+          min={dayjs().add(-30, 'd').toDate()}
           onChange={(val) => {
             val && setRange(val)
           }}
