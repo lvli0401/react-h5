@@ -50,6 +50,11 @@ export const getQueryStadiumOrder = (
   params: any = {}
 ): any =>
   request('post', '/nan_qiao/data/stadium/queryStadiumOrder', params)
+// 每年场馆预约率
+export const queryHistoryOrder = (
+  params: any = {}
+): any =>
+  request('post', '/nan_qiao/data/stadium/queryHistoryOrder', params)
 
 export const stadiumInfoListAll = (
   params: any = {}
