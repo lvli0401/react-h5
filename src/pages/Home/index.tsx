@@ -40,6 +40,9 @@ const Home: React.FC<Record<string, never>> = () => {
     {
       icon: messageIcon,
       text: '公告信息',
+      action: () => {
+        window.location.href = 'https://mp.weixin.qq.com/s/E0X7c6nW0WDDzBX3WhxN6g'
+      }
     }
   ]), [refDemeanorTitle])
   const getData = useCallback(async () => {

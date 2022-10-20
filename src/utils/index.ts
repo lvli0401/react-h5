@@ -1,11 +1,11 @@
-import storage from "./storage";
-import { getTokenByCode } from '@/apis/index';
-import { Toast } from "antd-mobile";
+import storage from './storage'
+import { getTokenByCode } from '@/apis/index'
+import { Toast } from 'antd-mobile'
 
 const config = {
-  appid: 'wx604f5b235a929557', // 测试公众号
-  // appid: 'wxe5be0ea7c9f3ab15', // 南桥公众号id
-};
+  // appid: 'wx604f5b235a929557', // 测试公众号
+  appid: 'wxe5be0ea7c9f3ab15', // 南桥公众号id
+}
 
 
 interface genOauthConfig {
@@ -17,7 +17,7 @@ interface genOauthConfig {
  * @returns {string}
  */
 const generateOAuthUrl = (config: genOauthConfig) => {
-  const [redirectUri] = window.location.href.split('#');
+  const [redirectUri] = window.location.href.split('#')
 
   const searchObj = {
     appid: config.appid,
@@ -25,42 +25,42 @@ const generateOAuthUrl = (config: genOauthConfig) => {
     response_type: 'code',
     scope: 'snsapi_userinfo',
     state: 'A1',
-  };
+  }
 
   const search = Object.entries(searchObj)
     .map((entry) => {
-      const [key, value] = entry;
-      return `${key}=${value}`;
+      const [key, value] = entry
+      return `${key}=${value}`
     })
-    .join('&');
+    .join('&')
 
-  return `https://open.weixin.qq.com/connect/oauth2/authorize?${search}#wechat_redirect`;
-};
+  return `https://open.weixin.qq.com/connect/oauth2/authorize?${search}#wechat_redirect`
+}
 
 
 const getQueryString = (name: string) => {
-  const reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-  const r = window.location.search.substr(1).match(reg);
+  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+  const r = window.location.search.substr(1).match(reg)
   if (r != null) {
-    return decodeURIComponent(r[2]);
+    return decodeURIComponent(r[2])
   }
-  return null;
+  return null
 }
 
 /**
  * 判断当前网页是否需要重定向
  */
 const checkRedirect = async () => {
-  const codeExist = window.location.search.includes('code');
+  const codeExist = window.location.search.includes('code')
   // 判断是否需要重定向
   if (!codeExist) {
-    window.location.replace(generateOAuthUrl(config));
+    window.location.replace(generateOAuthUrl(config))
   }
-  const code = getQueryString('code');
-  const { result } = await getTokenByCode({ code: code || '' });
-  storage.set('userInfo', result.userInfoDTO);
-  Toast.show("登录成功")
-};
+  const code = getQueryString('code')
+  const { result } = await getTokenByCode({ code: code || '' })
+  storage.set('userInfo', result.userInfoDTO)
+  Toast.show('登录成功')
+}
 
 export {
   checkRedirect,
