@@ -64,7 +64,7 @@ const MediaUpload = ({onUpload, fileList, maxCount = 1, multiple = false, accept
     <div>
       <div className={styles.imgList}>
         {fileList.map((v, index) => {
-          const url = 'image' === v.type ? v.url : `${v.url}?x-oss-process=video/snapshot,t_5000,f_jpg,m_fast`
+          const url = 'image' === v.type ? `${v.url}?x-oss-process=image/resize,w_80/quality,Q_80` : `${v.url}?x-oss-process=video/snapshot,t_5000,f_jpg,m_fast,w_80`
           return (
             <div className={styles.imgItem} key={index}
               style={{

@@ -14,7 +14,7 @@ import { getUserType } from '@/apis/index'
 import storage from '@utils/storage'
 
 const Home: React.FC<Record<string, never>> = () => {
-  const [banner, setBanner] = useState()
+  const [banner, setBanner] = useState<string>()
   const [hasMore, setHasMore] = useState(false)
   const [demeanorList, setDemeanorList] = useState<any[]>([])
   const [pageNum, setPageNum] = useState(1)
@@ -50,9 +50,9 @@ const Home: React.FC<Record<string, never>> = () => {
       request('post', '/nan_qiao/content/query', { pageNum: 1, pageSize: 10, type: 'BANNER' }),
       request('post', '/nan_qiao/content/query', { pageNum: 1, pageSize: 10, type: 'ACTIVITY_SHOW' }),
     ])
-    res1.list.length > 0 && setBanner(res1.list[0].filePath)
+    res1.list.length > 0 && setBanner(`${res1.list[0].filePath}?x-oss-process=image/resize,w_180/quality,Q_80`)
     res2.list.length > 0 && setDemeanorList(res2.list.map(({ filePath = '', name = '', id = '' }) => ({
-      imgurl: filePath,
+      imgurl: `${filePath}?x-oss-process=image/resize,w_180/quality,Q_80`,
       title: name,
       id
     })))

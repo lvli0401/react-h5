@@ -13,7 +13,7 @@ const getImage = (src: string) => new Promise((resolve, reject) => {
 })
 const format = (v: any) => ({
   videoUrl: v.filePath,
-  src: v.fileType === 2 ? `${v.filePath}?x-oss-process=video/snapshot,t_5000,f_jpg,m_fast` : v.filePath,
+  src: v.fileType === 2 ? `${v.filePath}?x-oss-process=video/snapshot,t_5000,f_jpg,m_fast,w_120` : v.filePath,
   type: v.fileType // 1是image, 2是video
 })
 const DemeanorInfo = () => {
@@ -87,7 +87,7 @@ const DemeanorInfo = () => {
         <div className={styles.left}>
           {leftPart.map((v, i) => (
             <div key={i} onClick={() => handlePlay(v)}>
-              <img src={v.src} alt={v.src} />
+              <img src={v.type === 2 ? v.src : `${v.src}?x-oss-process=image/resize,w_100/quality,Q_80`} alt='' />
               {v.type === 2 && <img src={playButton} />}
             </div>
           ))}
@@ -95,7 +95,7 @@ const DemeanorInfo = () => {
         <div className={styles.right}>
           {rightPart.map((v, i) => (
             <div key={i} onClick={() => handlePlay(v)}>
-              <img src={v.src} alt={v.src} />
+              <img src={v.type === 2 ? v.src : `${v.src}?x-oss-process=image/resize,w_100/quality,Q_80`} alt='' />
               {v.type === 2 && <img src={playButton} />}
             </div>
           ))}
