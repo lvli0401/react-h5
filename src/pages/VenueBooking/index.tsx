@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { LeftOutline } from "antd-mobile-icons";
-import { venuesAuditList, doAuditVenue } from '@/apis/index';
-import styles from "./index.module.scss";
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { LeftOutline } from 'antd-mobile-icons'
+import { venuesAuditList, doAuditVenue } from '@/apis/index'
+import styles from './index.module.scss'
 import { Toast } from 'antd-mobile'
 
 interface vProps {
@@ -12,29 +12,32 @@ interface vProps {
   orderPersonName?: string;
   orderPeoleCnt?: number;
   orderStatus: number;
+  orderPhone?: number;
+  teamName?: string;
+  applyReason?: string;
 }
 
 const Record: React.FC<any> = () => {
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const goBack = () => {
-    navigate(-1);
-  };
+    navigate(-1)
+  }
 
-  const [venueList, setVenueList] = useState<vProps[]>([]);
+  const [venueList, setVenueList] = useState<vProps[]>([])
 
   const getList = async () => {
-    const { result } = await venuesAuditList();
-    setVenueList(result.list);
-  };
+    const { result } = await venuesAuditList()
+    setVenueList(result.list)
+  }
 
   const doAudit = async (id: number | undefined, val: boolean) => {
     await doAuditVenue({
       orderId: id,
       auditSuc: val
-    });
+    })
     Toast.show('操作成功')
-    getList();
+    getList()
   }
 
 
@@ -53,19 +56,19 @@ const Record: React.FC<any> = () => {
             }}>不通过</span>
           </div>
         </div>
-      );
+      )
     } else if (status === 2) {
-      return <div className={styles.auditSuccess}>已通过审核</div>;
+      return <div className={styles.auditSuccess}>已通过审核</div>
     }
     return (
 
       <div className={styles.auditFailed}>未通过审核</div>
-    );
-  };
+    )
+  }
 
 
   useEffect(() => {
-    getList();
+    getList()
   }, [])
 
   return (
@@ -90,6 +93,18 @@ const Record: React.FC<any> = () => {
               <span className={styles.itemContent}>{i.orderPersonName}</span>
             </div>
             <div className={styles.cardItem}>
+              <span className={styles.itemLabel}>团队</span>
+              <span className={styles.itemContent}>{i.teamName}</span>
+            </div>
+            <div className={styles.cardItem}>
+              <span className={styles.itemLabel}>电话</span>
+              <span className={styles.itemContent}>{i.orderPhone}</span>
+            </div>
+            <div className={styles.cardItem}>
+              <span className={styles.itemLabel}>预约理由</span>
+              <span className={styles.itemContent}>{i.applyReason}</span>
+            </div>
+            <div className={styles.cardItem}>
               <span className={styles.itemLabel}>预约人数</span>
               <span className={styles.itemContent}>{i.orderPeoleCnt}</span>
             </div>
@@ -101,6 +116,6 @@ const Record: React.FC<any> = () => {
       }
 
     </div>
-  );
-};
-export default Record;
+  )
+}
+export default Record
