@@ -13,10 +13,12 @@ import {
   Toast
 } from 'antd-mobile'
 import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
-import { stadiumInfoListAll, venuesOrder } from '@/apis/index'
+import { orderWechatMessage, stadiumInfoListAll, venuesOrder } from '@/apis/index'
 import styles from './index.module.scss'
 import { useNavigate } from 'react-router-dom'
 import storage from '@/utils/storage'
+import { config } from '../../utils/index'
+import { API_DOMAIN } from '@/apis/config'
 
 interface timeRangeVosProps {
   startTime: string;
@@ -90,6 +92,7 @@ const Venues: React.FC<any> = () => {
     }
     await venuesOrder(params)
     Toast.show('预约成功')
+    await orderWechatMessage(`/mp/subscribemsg?action=get_confirm&appid=${config.appid}&scene=stadiumInfo&template_id=P7Dce45WRHZgoQ_bs-QUtXfBXIz7gfyis3mGnZyaHVE&redirect_url=${API_DOMAIN.concat('/nan_qiao/wechat/msg')}#wechat_redirect`)
   }
 
   useEffect(() => {

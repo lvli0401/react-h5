@@ -65,6 +65,15 @@ export const venuesOrder = (
   params: any = {}
 ): any =>
   request('post', '/nan_qiao/stadium/schedule/order', params)
+
+// 订阅微信消息
+export const orderWechatMessage = (url: string, params = {}): any => {
+  console.log(url)
+  request('get', url, params, {
+    baseURL: 'https://mp.weixin.qq.com',
+  })
+}
+  
 interface tokenProps {
   code?: string;
 }

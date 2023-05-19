@@ -63,5 +63,6 @@ const checkRedirect = async () => {
 }
 
 export {
+  config,
   checkRedirect,
 }
