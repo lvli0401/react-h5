@@ -50,9 +50,9 @@ const Home: React.FC<Record<string, never>> = () => {
       request('post', '/nan_qiao/content/query', { pageNum: 1, pageSize: 10, type: 'BANNER' }),
       request('post', '/nan_qiao/content/query', { pageNum: 1, pageSize: 10, type: 'ACTIVITY_SHOW' }),
     ])
-    res1.list.length > 0 && setBanner(`${res1.list[0].filePath}?x-oss-process=image/resize,w_180/quality,Q_80`)
+    res1.list.length > 0 && setBanner(`${res1.list[0].filePath}`)
     res2.list.length > 0 && setDemeanorList(res2.list.map(({ filePath = '', name = '', id = '' }) => ({
-      imgurl: `${filePath}?x-oss-process=image/resize,w_180/quality,Q_80`,
+      imgurl: `${filePath}`,
       title: name,
       id
     })))
